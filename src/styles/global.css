@@ -252,10 +252,13 @@ img {
   touch-action: manipulation;
 }
 
-@media (max-width: 639px) {
+/* ============================================================
+   POSICIONAMENTO DO SELO NO MOBILE (CELULAR / TELAS PEQUENAS)
+   ============================================================ */
+@media (max-width: 739px) {
   .wax-seal {
-    left: 53.2%;
-    top: 55.5%;
+    left: 52.8%; /* <--- ALTERE AQUI PARA MOVER PARA A DIREITA / ESQUERDA NO CELULAR */
+    top: 60.5%;  /* <--- ALTERE AQUI PARA MOVER PARA BAIXO / CIMA NO CELULAR */
   }
 }
 
