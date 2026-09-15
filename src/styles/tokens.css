@@ -1,0 +1,23 @@
+:root {
+  color-scheme: light;
+  --cream: #faf6f0;
+  --white: #fffdf9;
+  --blush: #f2e0d8;
+  --sage: #c8d5c0;
+  --mauve: #c9b0b8;
+  --gold: #c9a96e;
+  --text: #5a4a42;
+  --text-light: #9b8b83;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Jost', 'Segoe UI', sans-serif;
+
+  --shadow: 0 8px 32px rgba(90, 74, 66, 0.12);
+  --radius: 12px;
+  --ease-envelope: cubic-bezier(0.4, 0, 0.2, 1);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --page-pad: max(20px, var(--safe-left), var(--safe-right));
+}

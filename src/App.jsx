@@ -1,0 +1,86 @@
+import { useEffect, useState } from 'react'
+import EnvelopeHero from './components/EnvelopeHero'
+import HeroNames from './components/HeroNames'
+import Countdown from './components/Countdown'
+import InfoCards from './components/InfoCards'
+import Timeline from './components/Timeline'
+import Gallery from './components/Gallery'
+import Rsvp from './components/Rsvp'
+import Footer from './components/Footer'
+import AssetsPage from './pages/assets'
+import { useLenis } from './hooks/useLenis'
+
+function Invitation() {
+  useLenis()
+
+  return (
+    <div className="page page-enter">
+      <HeroNames />
+      <Countdown />
+      <InfoCards />
+      <Timeline />
+      <Gallery />
+      <Rsvp />
+      <Footer />
+    </div>
+  )
+}
+
+function Cover() {
+  const [phase, setPhase] = useState('cover')
+
+  useEffect(() => {
+    const locked = phase !== 'invite'
+    document.documentElement.style.overflow = locked ? 'hidden' : ''
+    document.body.style.overflow = locked ? 'hidden' : ''
+
+    return () => {
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
+    }
+  }, [phase])
+
+  useEffect(() => {
+    if (phase !== 'opening') return undefined
+    const id = window.setTimeout(() => setPhase('bloom'), 900)
+    return () => window.clearTimeout(id)
+  }, [phase])
+
+  useEffect(() => {
+    if (phase !== 'bloom') return undefined
+    const id = window.setTimeout(() => setPhase('invite'), 1100)
+    return () => window.clearTimeout(id)
+  }, [phase])
+
+  function openEnvelope() {
+    if (phase !== 'cover') return
+    setPhase('opening')
+  }
+
+  return (
+    <>
+      {phase !== 'invite' ? (
+        <EnvelopeHero phase={phase} onOpen={openEnvelope} />
+      ) : null}
+
+      {phase === 'bloom' || phase === 'invite' ? (
+        <div
+          className={`invite-bloom${phase === 'bloom' ? ' is-on' : ''}${phase === 'invite' ? ' is-out' : ''}`}
+          aria-hidden="true"
+        />
+      ) : null}
+
+      {phase === 'invite' ? <Invitation /> : null}
+    </>
+  )
+}
+
+export default function App() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/'
+
+  if (path === '/assets') {
+    return <AssetsPage />
+  }
+
+  return <Cover />
+}
