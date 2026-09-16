@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react'
 import EnvelopeHero from './components/EnvelopeHero'
 import HeroNames from './components/HeroNames'
 import StoryMessage from './components/StoryMessage'
-import Countdown from './components/Countdown'
-import InfoCards from './components/InfoCards'
-import Timeline from './components/Timeline'
+import CelebrationDetails from './components/CelebrationDetails'
 import Gallery from './components/Gallery'
 import Rsvp from './components/Rsvp'
 import Footer from './components/Footer'
@@ -18,9 +16,7 @@ function Invitation() {
     <div className="page page-enter">
       <HeroNames />
       <StoryMessage />
-      <Countdown />
-      <InfoCards />
-      <Timeline />
+      <CelebrationDetails />
       <Gallery />
       <Rsvp />
       <Footer />

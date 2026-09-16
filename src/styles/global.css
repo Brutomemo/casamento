@@ -670,7 +670,6 @@ img {
 /* CONTAINER PRINCIPAL DA PRIMEIRA VIEWPORT (100dvh FULLSCREEN) */
 .cinematic-hero {
   position: relative;
-  width: 100vw;
   width: 100%;
   height: 100vh;
   height: 100dvh;
@@ -704,17 +703,17 @@ img {
 }
 
 /* ============================================================
-   CAMADA DA FOTOGRAFIA DE FUNDO COM ALTURA EXCEDENTE PARA PARALLAX
-   - height: 125% e top: -12% criam o curso de movimento vertical.
+   CAMADA DA FOTOGRAFIA DE FUNDO COM MARGEM DE SEGURANÇA DE ALTURA (115% / -7.5%)
+   - height: 115% e top: -7.5% garantem o curso ideal sem alterar o aspect-ratio.
    - will-change: transform garante a aceleração via GPU.
    ============================================================ */
 .hero-bg-layer {
   position: absolute;
-  top: -12%;
+  top: -7.5%;
   left: 0;
   right: 0;
   width: 100%;
-  height: 125%;
+  height: 115%;
   z-index: 1;
   overflow: hidden;
   margin: 0;
@@ -724,27 +723,47 @@ img {
 }
 
 /* ============================================================
-   FOTO PRINCIPAL DO CASAL (/photos/1.jpeg) EM TELA CHEIA
+   FOTO PRINCIPAL DO CASAL (/photos/1.jpeg) EM TELA CHEIA RESPONSIVA
    - object-fit: cover preenche toda a tela.
+   - object-position: center 28% mantém os rostos perfeitamente emoldurados no terço superior.
+   - aspect-ratio: auto impede distorções de proporção.
    - opacity: 0.94 permite que a textura de papel bg.png do fundo transpareça suavemente.
-   - AJUSTE DE OPACIDADE: altere 'opacity: 0.94' (ex: 0.90 para mais textura, 0.97 para foto mais pura).
    ============================================================ */
 .hero-bg-photo {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center 28%;
+  aspect-ratio: auto;
   display: block;
-  opacity: 0.94; /* AJUSTE DE OPACIDADE: cria a leve textura de papel transparecendo o fundo */
-  transform: scale(1.04); /* Micro-zoom inicial recuando para 1.00 no scroll */
+  opacity: 0.92;
+  transform: scale(0.80); /* Micro-zoom inicial recuando para 1.00 no scroll */
   transform-origin: center center;
   will-change: transform, opacity;
   border-radius: 0;
   border: none;
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-bg-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 42% 15%;
+    transform: none !important;
+  }
+
+  /* Se a altura da tela for muito longa em relação à largura (ex: 9:19 ou mais estreito), evite o corte excessivo */
+  @media (max-aspect-ratio: 9/16) {
+    .hero-bg-photo {
+      object-position: 46% 15%;
+    }
+  }
 }
 
 /* ============================================================
@@ -781,14 +800,15 @@ img {
 }
 
 /* ============================================================
-   CAMADA DA TIPOGRAFIA MONUMENTAL (SOBREPOSTA NA BASE DA FOTO)
+   CAMADA DA TIPOGRAFIA MONUMENTAL (ANCORADA NA BASE COM SAFE AREA)
    - Posicionada de forma absoluta na base da tela cheia.
    ============================================================ */
 .hero-content-layer {
   position: absolute;
-  bottom: max(32px, calc(var(--safe-bottom) + 20px));
+  bottom: calc(env(safe-area-inset-bottom, 20px) + 24px);
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 10;
   text-align: center;
   padding: 0 var(--page-pad);
@@ -798,6 +818,13 @@ img {
   gap: 6px;
   will-change: transform, opacity;
   pointer-events: none;
+}
+
+@media (max-height: 680px) {
+  .hero-content-layer {
+    bottom: max(16px, calc(env(safe-area-inset-bottom, 12px) + 12px));
+    gap: 4px;
+  }
 }
 
 /* TEXTO SUPERIOR (EYEBROW) */
@@ -1385,4 +1412,205 @@ img {
   pointer-events: none;
   mix-blend-mode: multiply;
   opacity: 0.85;
+}
+
+/* ============================================================
+   FASE 2 / ETAPA 3 — DOBRA DA CELEBRAÇÃO UNIFICADA (CelebrationDetails)
+   - Fundo em tom de papel algodão (#f5efeb / var(--cream))
+   - Textura bg.png / bg.jpg integrada
+   - Zero cards retangulares flutuantes, zero caixas soltas, zero ícones genéricos
+   ============================================================ */
+.celebration-section {
+  position: relative;
+  width: 100%;
+  background:
+    linear-gradient(180deg, rgba(245, 239, 235, 0.4) 0%, rgba(245, 239, 235, 0.75) 100%),
+    url('/assets/bg.png') center / cover no-repeat,
+    url('/assets/bg.jpg') center / cover no-repeat,
+    #f5efeb;
+  filter: contrast(0.97) brightness(1.01);
+  padding: clamp(80px, 14vh, 140px) var(--page-pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ORNAMENTO DE TOPO EM RELEVO SECO (BLIND DEBOSS FLORAL TOP) */
+.celebration-floral-top {
+  display: block;
+  width: clamp(160px, 40vw, 220px);
+  max-width: 220px;
+  height: auto;
+  margin-bottom: clamp(24px, 4vh, 40px);
+  mix-blend-mode: multiply !important;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.celebration-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: min(90%, 540px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 5vh, 48px);
+}
+
+/* SUB-BLOCO 1: CONTAGEM REGRESSIVA EDITORIAL */
+.celebration-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.celebration-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.countdown-digits-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(8px, 2.5vw, 18px);
+  width: 100%;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.countdown-number {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 5.5vw, 2.8rem);
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.countdown-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  color: var(--text-light);
+  text-transform: uppercase;
+}
+
+.countdown-sep {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.7;
+}
+
+/* LINHA SEPARADORA EDITORIAL DA CELEBRAÇÃO */
+.celebration-divider {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.6;
+}
+
+/* SUB-BLOCO 2: O LOCAL (DESTAQUE ARQUITETÔNICO) */
+.celebration-venue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.celebration-subheading {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.celebration-address {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(0.85rem, 2.4vw, 0.95rem);
+  line-height: 1.5;
+  color: var(--text-light);
+  max-width: 420px;
+}
+
+.celebration-maps-link {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  margin-top: 6px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.celebration-maps-link:hover {
+  opacity: 0.75;
+  transform: translateY(-1px);
+}
+
+/* SUB-BLOCO 3: ROTEIRO DO DIA (CERIMÔNIA & RECEPÇÃO) */
+.celebration-schedule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.schedule-time {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+.schedule-dot {
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.schedule-title {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  color: var(--text);
 }

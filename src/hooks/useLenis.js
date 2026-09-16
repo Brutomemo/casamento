@@ -3,19 +3,21 @@ import Lenis from '@studio-freight/lenis'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
-function isCoarsePointer() {
-  return window.matchMedia('(pointer: coarse)').matches
-}
+gsap.registerPlugin(ScrollTrigger)
 
 export function useLenis() {
   useEffect(() => {
-    if (isCoarsePointer()) {
-      requestAnimationFrame(() => ScrollTrigger.refresh())
-      return undefined
-    }
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+    })
 
-    const lenis = new Lenis()
-    lenis.on('scroll', ScrollTrigger.update)
+    // Sincroniza ScrollTrigger com o evento de rolagem do Lenis
+    lenis.on('scroll', () => {
+      ScrollTrigger.update()
+    })
 
     const ticker = (time) => {
       lenis.raf(time * 1000)

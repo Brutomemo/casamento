@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import { wedding } from '../config'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function HeroNames() {
   const containerRef = useRef(null)
@@ -18,15 +21,14 @@ export default function HeroNames() {
 
     if (!container || !bg || !content) return
 
-    // Respeita preferência do usuário por movimento reduzido (Acessibilidade)
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
     // ============================================================
-    // SISTEMA CINEMATOGRÁFICO DE CÂMERA EM TELA CHEIA (GSAP SCROLL-DRIVEN M3):
-    // 1. Câmera recua (pull-back: scale 1.04 -> 1.00) e desloca verticalmente (~20% do scroll)
-    // 2. Nomes do casal descolam em velocidade distinta (~12% do scroll) criando profundidade
-    // 3. Microindicador desvanece rápido nos primeiros ~40px de scroll
+    // MECÂNICA DO SCROLL CINEMATOGRÁFICO DE CÂMERA (GSAP SCROLL-DRIVEN M3):
+    // 1. Fotografia: Recuo de escala (1.05 -> 1.00) e deslocamento vertical (translate3d 0 -> 18%)
+    // 2. Bloco de Nomes & Data: Descola da foto (yPercent: -15 / translateY: -30px) com desvanecimento
+    // 3. Microindicador: Desvanece nos primeiros ~30px de scroll
     // ============================================================
     const st = gsap.timeline({
       scrollTrigger: {
@@ -34,29 +36,46 @@ export default function HeroNames() {
         start: 'top top',
         end: 'bottom top',
         scrub: 0.5,
+        onUpdate: (self) => {
+          if (process.env.NODE_ENV === 'development') {
+            console.log('[Hero Scroll Progress]:', self.progress.toFixed(3))
+          }
+        },
       },
     })
 
-    // Camada 1 (Foto em Tela Cheia): Recuo sutil de câmera (pull-back 1.04 -> 1.00)
+    // Recuo de escala da foto (scale 1.05 -> 1.00)
     if (photo) {
       st.fromTo(
         photo,
-        { scale: 1.04 },
+        { scale: 1.05 },
         { scale: 1.0, ease: 'none' },
         0
       )
     }
 
-    // Camada 1 (Fundo): Deslocamento vertical suave da foto (~20% do scroll)
-    st.to(bg, { yPercent: 12, opacity: 0.85, ease: 'none' }, 0)
+    // Deslocamento vertical da camada da foto (translate3d / yPercent: 18%)
+    st.fromTo(
+      bg,
+      { yPercent: 0 },
+      { yPercent: 18, opacity: 0.85, ease: 'none' },
+      0
+    )
 
-    // Camada 2 (Nomes & Conteúdo sobrepostos): Deslocamento óptico 3D (~12% do scroll)
-    st.to(content, { yPercent: -12, opacity: 0.5, ease: 'none' }, 0)
+    // Bloco de Nomes e Data descola mais rápido (yPercent: -15) e perde opacidade
+    st.fromTo(
+      content,
+      { yPercent: 0, opacity: 1 },
+      { yPercent: -15, opacity: 0.3, ease: 'none' },
+      0
+    )
 
-    // Camada 3 (Microindicador): Desvanece rapidamente nos primeiros ~40px rolados
+    // Microindicador vertical desvanece rapidamente nos primeiros pixels rolados
     if (indicator) {
-      st.to(indicator, { opacity: 0, y: -10, ease: 'power1.out' }, 0)
+      st.to(indicator, { opacity: 0, y: -15, ease: 'power1.out', duration: 0.15 }, 0)
     }
+
+    requestAnimationFrame(() => ScrollTrigger.refresh())
 
     return () => {
       st.scrollTrigger?.kill()
@@ -69,7 +88,7 @@ export default function HeroNames() {
       {/* Camada 0: Textura de papel no fundo (bg.png / bg.jpg) */}
       <div className="hero-texture-bg" aria-hidden="true" />
 
-      {/* Camada 1: Fotografia de fundo em TELA CHEIA de ponta a ponta (100dvh) */}
+      {/* Camada 1: Fotografia de fundo em TELA CHEIA (100dvh com 125% de altura para parallax) */}
       <div className="hero-bg-layer" ref={bgRef}>
         <img
           ref={photoRef}
