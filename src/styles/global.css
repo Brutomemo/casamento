@@ -665,28 +665,31 @@ img {
   word-break: break-all;
 }
 
-/* ——— FASE 2 / ETAPA 1 — HERO CINEMATOGRÁFICO COM NÉVOA E ZOOM REDUZIDO ——— */
+/* ——— FASE 2 / ETAPA 1 — HERO CINEMATOGRÁFICO EM TELA CHEIA (FULL VIEWPORT 100dvh) ——— */
 
-/* CONTAINER PRINCIPAL DA PRIMEIRA VIEWPORT (100dvh) */
+/* CONTAINER PRINCIPAL DA PRIMEIRA VIEWPORT (100dvh FULLSCREEN) */
 .cinematic-hero {
   position: relative;
+  width: 100vw;
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  min-height: 620px;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   overflow: hidden;
-  background: var(--cream);
+  background: #140e0a;
   isolation: isolate;
-  padding-bottom: max(32px, calc(var(--safe-bottom) + 24px));
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
 }
 
 /* ============================================================
-   TEXTURA DE FUNDO DA HERO (bg.jpg / bg.png)
-   Carrega a textura de papel para o espaço vago gerado pelo zoom reduzido da foto.
+   TEXTURA DE FUNDO (bg.png / bg.jpg DA HERO)
+   - Aplica a imagem bg.png no fundo para dar a textura orgânica de papel.
    ============================================================ */
 .hero-texture-bg {
   position: absolute;
@@ -694,134 +697,103 @@ img {
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(245, 240, 232, 0.25) 0%, rgba(245, 240, 232, 0.6) 100%),
     url('/assets/bg.png') center / cover no-repeat,
-    url('/assets/bg.jpg') center / cover no-repeat;
-  filter: contrast(0.96) brightness(1.02);
+    url('/assets/bg.jpg') center / cover no-repeat,
+    var(--cream);
+  filter: contrast(0.98) brightness(1.02);
 }
 
 /* ============================================================
-   CONTAINER DA FOTO DA HERO (PRESERVA A LARGURA INTEGRAL DAS LATERAIS)
-   - aspect-ratio: 4 / 3 preserva as proporções originais da foto.
-   - max-height: 52vh garante o espaço vago na parte inferior para a névoa e tipografia.
-   - AJUSTE DE TAMANHO DA FOTO: altere 'width: min(96vw, 760px)' ou 'max-height'.
+   CAMADA DA FOTOGRAFIA DE FUNDO (PONTAS A PONTAS, 100dvh)
+   - Preenche 100% da largura e altura da viewport sem bordas ou paddings.
    ============================================================ */
-.hero-photo-container {
-  position: absolute;
-  top: max(16px, calc(var(--safe-top) + 28px));
-  left: 0%;
-  transform: translateX(-50%);
-  width: min(106vw, 760px); /* AJUSTE DE LARGURA: aumente ou diminua a largura da foto */
-  max-height: 52vh; /* AJUSTE DE ALTURA MÁXIMA DA FOTO NO VIEWPORT */
-  aspect-ratio: 4 / 3; /* AJUSTE DE PROPORÇÃO DA FOTO LANDSCAPE */
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 12px 46px rgba(60, 45, 30, 0.12);
-}
-
 .hero-bg-layer {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
 }
 
 /* ============================================================
-   FOTO PRINCIPAL DO CASAL (/photos/1.jpeg)
-   - object-fit: contain garante que NENHUMA lateral da foto seja cortada.
-   - transform: scale(1.0) permite ajustar o zoom fino.
-   - -webkit-mask-image faz a dissolução transparente na base da foto.
+   FOTO PRINCIPAL DO CASAL (/photos/1.jpeg) EM TELA CHEIA
+   - object-fit: cover preenche toda a tela.
+   - opacity: 0.94 permite que a textura de papel bg.png do fundo transpareça suavemente.
+   - AJUSTE DE OPACIDADE: altere 'opacity: 0.94' (ex: 0.90 para mais textura, 0.97 para foto mais pura).
    ============================================================ */
 .hero-bg-photo {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* AJUSTE: 'contain' impede que as laterais da foto sejam cortadas */
-  object-position: center top;
+  object-fit: cover;
+  object-position: center 25%;
   display: block;
-  transform: scale(1); /* AJUSTE DE ZOOM: 1.0 = 100% natural, 0.95 = zoom menor */
-  transform-origin: center top;
-  will-change: transform;
-  border-radius: 8px;
-
-  /* AJUSTE DE FUSÃO: máscara de degradê na borda inferior da foto */
-  -webkit-mask-image: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 58%,
-    rgba(0, 0, 0, 0.65) 82%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  mask-image: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 58%,
-    rgba(0, 0, 0, 0.65) 82%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  opacity: 0.94; /* AJUSTE DE OPACIDADE: cria a leve textura de papel transparecendo o fundo */
+  transform: scale(1.04); /* Micro-zoom inicial recuando para 1.00 no scroll */
+  transform-origin: center center;
+  will-change: transform, opacity;
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* ============================================================
-   NÉVOA DIFUSA FOCADA NA PARTE INFERIOR (DEGRADÊ DE OPACIDADE)
-   - Cobre a base da foto e o espaço vago inferior para fusão com a textura do fundo.
-   - AJUSTE DE NÉVOA: altere 'height: 60%' para aumentar ou diminuir a altura da névoa.
+   NÉVOA & SCRIM CINEMATOGRÁFICO DE BASE SOBRE A FOTO
+   - Garante legibilidade cristalina da tipografia sobreposta na base da foto.
    ============================================================ */
 .hero-bottom-fog {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60%; /* AJUSTE DE ALTURA DA NÉVOA: ex: 50%, 60%, 70% */
+  height: 50vh;
   z-index: 2;
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(245, 240, 232, 0) 0%,
-    rgba(245, 240, 232, 0.35) 30%,
-    rgba(245, 240, 232, 0.75) 65%,
-    rgba(245, 240, 232, 0.96) 88%,
-    var(--cream) 100%
+    transparent 0%,
+    rgba(20, 14, 10, 0.18) 30%,
+    rgba(20, 14, 10, 0.55) 65%,
+    rgba(20, 14, 10, 0.82) 100%
   );
 }
 
-/* ============================================================
-   SCRIM SUTIL DE BASE
-   - Garante legibilidade do texto no degradê sem escurecer os rostos do casal.
-   ============================================================ */
 .hero-bg-scrim {
   position: absolute;
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    transparent 50%,
-    rgba(40, 30, 20, 0.04) 75%,
-    rgba(40, 30, 20, 0.16) 100%
+  background: radial-gradient(
+    ellipse at 50% 90%,
+    rgba(20, 14, 10, 0.45) 0%,
+    transparent 75%
   );
 }
 
 /* ============================================================
-   CAMADA DA TIPOGRAFIA MONUMENTAL
-   - Posicionada no espaço vago inferior abaixo dos rostos.
-   - AJUSTE DE POSIÇÃO VERTICAL DO TEXTO: altere 'margin-bottom'.
+   CAMADA DA TIPOGRAFIA MONUMENTAL (SOBREPOSTA NA BASE DA FOTO)
+   - Posicionada de forma absoluta na base da tela cheia.
    ============================================================ */
 .hero-content-layer {
-  position: relative;
+  position: absolute;
+  bottom: max(32px, calc(var(--safe-bottom) + 20px));
+  left: 0;
+  right: 0;
   z-index: 10;
   text-align: center;
   padding: 0 var(--page-pad);
-  margin-bottom: clamp(36px, 6.5vh, 64px); /* AJUSTE DA POSIÇÃO DO TEXTO EM RELAÇÃO AO RODAPÉ */
-  width: 100%;
-  max-width: 860px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   will-change: transform, opacity;
+  pointer-events: none;
 }
 
 /* TEXTO SUPERIOR (EYEBROW) */
@@ -832,7 +804,7 @@ img {
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--gold);
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .hero-title-stack {
@@ -844,15 +816,15 @@ img {
   margin: 2px 0;
 }
 
-/* NOMES DO CASAL (MARCOS & GRAZI) - AJUSTE DE TAMANHO DE FONTE */
+/* NOMES DO CASAL (MARCOS & GRAZI) - TIPOGRAFIA BRANCA ILUMINADA SOBRE FOTO */
 .hero-couple-name {
   font-family: var(--font-serif);
   font-weight: 300;
-  font-size: clamp(2.8rem, 8.5vw, 4.2rem); /* AJUSTE DE FONTE DOS NOMES */
+  font-size: clamp(2.8rem, 8.5vw, 4.2rem);
   line-height: 1.05;
-  color: var(--text);
+  color: #ffffff;
   letter-spacing: -0.01em;
-  text-shadow: 0 2px 12px rgba(255, 253, 249, 0.9);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
 }
 
 /* E DO CASAL (&) COM RESPIRO LATERAL */
@@ -864,7 +836,7 @@ img {
   color: var(--gold);
   line-height: 1;
   padding: 0 4px;
-  text-shadow: 0 2px 8px rgba(255, 253, 249, 0.8);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
 /* DATA DO CASAMENTO */
@@ -873,37 +845,28 @@ img {
   font-size: 11px;
   font-weight: 300;
   letter-spacing: 0.3em;
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.95);
   margin-top: 4px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
 
-/* MICROINDICADOR DISCRETO DE SCROLL NO RODAPÉ */
+/* MICROINDICADOR DISCRETO DE SCROLL NO RODAPÉ (LINHA VERTICAL MINIMALISTA) */
 .hero-scroll-indicator {
   position: absolute;
-  bottom: 16px;
+  bottom: max(12px, calc(var(--safe-bottom) + 4px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
   pointer-events: none;
-}
-
-.scroll-indicator-label {
-  font-family: var(--font-sans);
-  font-size: 8px;
-  font-weight: 300;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(250, 246, 240, 0.7);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  will-change: opacity, transform;
 }
 
 .scroll-indicator-line {
   width: 1px;
-  height: 26px;
+  height: 28px;
   background: linear-gradient(180deg, var(--gold), transparent);
   animation: scroll-line-pulse 2.2s ease-in-out infinite;
 }
@@ -928,7 +891,8 @@ img {
   }
 
   .hero-bg-photo,
-  .hero-content-layer {
+  .hero-content-layer,
+  .hero-scroll-indicator {
     will-change: auto !important;
     transform: none !important;
   }
