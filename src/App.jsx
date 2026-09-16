@@ -42,13 +42,13 @@ function Cover() {
 
   useEffect(() => {
     if (phase !== 'opening') return undefined
-    const id = window.setTimeout(() => setPhase('bloom'), 900)
+    const id = window.setTimeout(() => setPhase('bloom'), 950)
     return () => window.clearTimeout(id)
   }, [phase])
 
   useEffect(() => {
     if (phase !== 'bloom') return undefined
-    const id = window.setTimeout(() => setPhase('invite'), 1100)
+    const id = window.setTimeout(() => setPhase('invite'), 1150)
     return () => window.clearTimeout(id)
   }, [phase])
 

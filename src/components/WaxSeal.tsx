@@ -38,11 +38,11 @@ export default function WaxSeal({
   return (
     <button
       type="button"
-      className="wax-seal"
+      className={`wax-seal${!disabled ? ' is-pulse' : ''}`}
       onClick={onClick}
       disabled={disabled}
       style={style}
-      aria-label="Abrir convite"
+      aria-label="Tocar para abrir o convite de casamento de Marcos e Grazi"
     >
       {useImage ? (
         <img

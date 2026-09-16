@@ -51,7 +51,7 @@ img {
 
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 9px;
+  font-size: 15px;
   font-weight: 400;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -120,6 +120,23 @@ img {
   pointer-events: none;
 }
 
+.paper-texture-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    radial-gradient(
+      circle at 40% 30%,
+      rgba(255, 253, 248, 0.55) 0%,
+      rgba(235, 224, 208, 0.25) 60%,
+      rgba(160, 130, 100, 0.12) 100%
+    ),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+}
+
 .hero-floral {
   position: absolute;
   z-index: 3;
@@ -153,51 +170,119 @@ img {
   }
 }
 
-.invite-card {
-  position: relative;
-  z-index: 4;
-  width: min(94vw, 560px);
-  height: auto;
-  max-height: 82vh;
-  aspect-ratio: 4844 / 3234;
+/* ——— Hero Opening Header ——— */
+.hero-opening-header {
+  position: absolute;
+  top: max(24px, calc(var(--safe-top) + 16px));
+  left: 0;
+  right: 0;
+  z-index: 8;
+  text-align: center;
+  pointer-events: none;
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: hero-header-fade-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.opening-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.9;
+}
+
+.opening-couple-names {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(30px, 8vw, 52px);
+  line-height: 1.1;
+  color: var(--text);
+  letter-spacing: 0.5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f0e8;
-  border-radius: 14px;
-  border: 1px solid rgba(212, 184, 150, 0.45);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07);
-  padding: 10px;
-  overflow: hidden;
-  isolation: isolate;
-  transition: transform 0.5s var(--ease-envelope), box-shadow 0.5s ease;
+  gap: 8px;
 }
 
-@media (min-width: 640px) {
-  .invite-card {
-    width: min(92vw, 720px);
-    max-height: 86vh;
-    border-radius: 18px;
-    padding: 14px;
+.opening-amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(24px, 6.5vw, 40px);
+  color: var(--gold);
+  line-height: 1;
+}
+
+.opening-date {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 3px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+@keyframes hero-header-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.invite-grain {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+.envelope-hero.is-opening .hero-opening-header,
+.envelope-hero.is-bloom .hero-opening-header {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 0;
+  transform: translateY(-16px);
 }
 
-/* ——— Envelope bg visual modelo ——— */
+/* ============================================================
+   1. ESTRUTURA DO CONVITE NA TELA (.invite-card)
+   Preenchimento fluido e responsivo sem qualquer distorção!
+   ============================================================ */
+/* ============================================================
+   1. ESTRUTURA DO CONVITE NA TELA (.invite-card)
+   ============================================================ */
+.invite-card {
+  position: relative;
+  z-index: 4;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
 .envelope-scene {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 4;
   overflow: hidden;
+  -webkit-mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.8) 65%, rgba(0, 0, 0, 0) 96%);
+  mask-image: radial-gradient(ellipse 88% 88% at 50% 50%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.8) 65%, rgba(0, 0, 0, 0) 96%);
 }
 
 .envelope-bg-picture {
@@ -213,11 +298,17 @@ img {
 .envelope-bg-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   display: block;
-  border-radius: 12px;
-  filter: drop-shadow(0 18px 20px rgba(70, 50, 35, 0.15));
+}
+
+.envelope-fog-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 35%, rgba(245, 240, 232, 0.25) 65%, rgba(245, 240, 232, 0.92) 96%);
 }
 
 .envelope-hero.is-opening .envelope-bg-img,
@@ -227,14 +318,22 @@ img {
   opacity: 0;
 }
 
-/* ——— Wax Seal no bico central ——— */
+/* ============================================================
+   2. POSICIONAMENTO DO SELO DE CERA (.wax-seal)
+   Para editar o posicionamento no DESKTOP ou MOBILE sem que um afete o outro,
+   basta alterar as variáveis CSS em src/styles/tokens.css:
+   - DESKTOP: --seal-desktop-top, --seal-desktop-left, --seal-desktop-size
+   - MOBILE:  --seal-mobile-top, --seal-mobile-left, --seal-mobile-size
+   ============================================================ */
 .wax-seal {
   position: absolute;
-  left: 53%;
-  top: 58.5%;
-  z-index: 10;
-  width: clamp(100px, 28vw, 136px);
-  height: clamp(100px, 28vw, 136px);
+  left: var(--seal-desktop-left);
+  top: var(--seal-desktop-top);
+  z-index: 30;
+  width: var(--seal-desktop-size);
+  height: var(--seal-desktop-size);
+  min-width: 44px;
+  min-height: 44px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -250,6 +349,43 @@ img {
   -webkit-touch-callout: none;
   user-select: none;
   touch-action: manipulation;
+}
+
+.wax-seal:active:not(:disabled) {
+  transform: translate(-50%, -50%) scale(0.96);
+}
+
+/* Ajuste isolado para MOBILE (telas de até 639px) */
+@media (max-width: 639px) {
+  .wax-seal {
+    left: var(--seal-mobile-left);
+    top: var(--seal-mobile-top);
+    width: var(--seal-mobile-size);
+    height: var(--seal-mobile-size);
+  }
+}
+
+/* Microinteração de respiração sutil (breathing motion) */
+.wax-seal.is-pulse:not(:hover):not(:disabled) {
+  animation: seal-breathing 3.2s ease-in-out infinite;
+}
+
+@keyframes seal-breathing {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    filter: drop-shadow(0 6px 20px rgba(70, 45, 25, 0.28));
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.04);
+    filter: drop-shadow(0 9px 28px rgba(70, 45, 25, 0.38));
+  }
+}
+
+/* --- CELULAR / MOBILE (telas até 639px) --- */
+@media (max-width: 639px) {
+  .hero-bg-texture {
+    background-position: center 98%; /* <--- SUBIR LEVEMENTE O BG SOMENTE NO MOBILE */
+  }
 }
 
 .wax-seal::before {
@@ -279,7 +415,7 @@ img {
 .envelope-hero.is-bloom .wax-seal {
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(1.18);
+  transform: translate(-50%, -50%) scale(1.0);
 }
 
 .wax-seal-img,
@@ -293,7 +429,7 @@ img {
 .wax-seal-initials {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 80%;
   transform: translate(-50%, -50%);
   z-index: 2;
   font-family: var(--font-serif);
@@ -920,69 +1056,10 @@ img {
     background: #f6e8db;
   }
 
-  .envelope-scene {
-    overflow: hidden;
-  }
-
-  .envelope-frame {
-    position: relative;
-    inset: auto;
-    width: 148vw;
-    min-width: 148vw;
-    height: auto;
-    aspect-ratio: 4844 / 3234;
-    flex-shrink: 0;
-    perspective-origin: 50% 23%;
-  }
-
-  .envelope-photo {
-    object-fit: fill;
-    object-position: center;
-  }
-
-  .envelope-flap-liner,
-  .envelope-flap {
-    clip-path: polygon(20.8% 22.6%, 79.2% 22.6%, 50% 52.2%);
-  }
-
-  .envelope-flap {
-    transform-origin: 50% 22.6%;
-  }
-
-  .wax-seal {
-    top: 52.2%;
-    width: clamp(72px, 19vw, 96px);
-    height: clamp(72px, 19vw, 96px);
-  }
-
-  .invite-label {
-    display: none;
-  }
-
-  .hero-silk {
-    display: none;
-    animation: none;
-  }
-
   .rsvp-contact a {
     display: inline-flex;
     min-height: 44px;
     align-items: center;
-  }
-}
-
-@media (max-height: 500px) and (orientation: landscape) {
-  .wax-seal {
-    width: 88px;
-    height: 88px;
-  }
-
-  .invite-label {
-    top: 8px;
-  }
-
-  .envelope-hint {
-    bottom: 8px;
   }
 }
 

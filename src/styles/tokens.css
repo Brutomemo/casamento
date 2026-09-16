@@ -20,4 +20,15 @@
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --page-pad: max(20px, var(--safe-left), var(--safe-right));
+
+  /* ——— Posicionamento do Selo de Cera (Editável Isoladamente) ——— */
+  /* DESKTOP: Altere aqui para ajustar o posicionamento no DESKTOP */
+  --seal-desktop-top: 73.5%;
+  --seal-desktop-left: 66.8%;
+  --seal-desktop-size: clamp(110px, 33vw, 230px);
+
+  /* MOBILE: Altere aqui para ajustar o posicionamento no CELULAR sem afetar o desktop */
+  --seal-mobile-top: 57.5%;
+  --seal-mobile-left: 70%;
+  --seal-mobile-size: clamp(72px, 24vw, 130px);
 }
