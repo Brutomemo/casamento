@@ -151,21 +151,31 @@ export default function Rsvp() {
       }
 
       if (isSupabaseConfigured()) {
-        const { error } = await supabase.from('rsvp').insert([payload])
+        const { error } = await supabase
+          .schema('casamento')
+          .from('rsvp')
+          .insert([payload])
+          .select()
 
         if (error) {
-          console.error('Erro ao enviar RSVP para o Supabase:', error)
-          throw error
+          console.error('Erro detalhado retornado pelo Supabase:', error)
+          setErrorMessage(
+            `Falha no envio ao banco de dados: ${error.message || 'Erro de conexão com o Supabase'}`,
+          )
+          setSubmitting(false)
+          return
         }
       } else {
+        console.warn('Supabase não configurado. Exibindo simulador local.')
         await new Promise((resolve) => setTimeout(resolve, 800))
       }
 
+      // Apenas com sucesso confirmado do banco de dados:
       setSubmitted(true)
     } catch (err) {
-      console.error(err)
+      console.error('Erro de execução no envio do RSVP:', err)
       setErrorMessage(
-        'Não foi possível registrar via formulário neste momento. Por gentileza, confirme diretamente por WhatsApp abaixo.',
+        'Não foi possível registrar via formulário neste momento. Por gentileza, tente novamente ou confirme diretamente por WhatsApp abaixo.',
       )
     } finally {
       setSubmitting(false)
