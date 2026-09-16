@@ -18,17 +18,23 @@ export default function EnvelopeHero({ phase, onOpen }) {
       {/* Florais decorativos fixos nos cantos */}
       <img
         className="hero-floral hero-floral-top"
-        src="/assets/flores.png?v=2"
+        src="/assets/flores.webp"
         alt=""
         aria-hidden="true"
+        width="320"
+        height="320"
+        loading="lazy"
         decoding="async"
         draggable="false"
       />
       <img
         className="hero-floral hero-floral-bottom"
-        src="/assets/flores.png?v=2"
+        src="/assets/flores.webp"
         alt=""
         aria-hidden="true"
+        width="320"
+        height="320"
+        loading="lazy"
         decoding="async"
         draggable="false"
       />
@@ -52,10 +58,14 @@ export default function EnvelopeHero({ phase, onOpen }) {
           <div className="envelope-bg-picture" aria-hidden="true">
             <img
               className="envelope-bg-img"
-              src="/assets/envelope.jpg?v=2"
+              src="/assets/envelope.webp"
               alt="Envelope físico do convite de casamento"
+              width="4016"
+              height="5622"
               draggable="false"
               decoding="async"
+              loading="eager"
+              fetchPriority="high"
             />
           </div>
 

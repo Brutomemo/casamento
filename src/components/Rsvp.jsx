@@ -203,8 +203,10 @@ export default function Rsvp() {
       <div className="rsvp-container">
         {/* Imagem do Buquê no topo da dobra de RSVP */}
         <img
-          src="/assets/buque.png"
+          src="/assets/buque.webp"
           alt="Buquê Floral"
+          width="200"
+          height="200"
           className="rsvp-bouquet-img"
           loading="lazy"
           decoding="async"
@@ -453,8 +455,10 @@ export default function Rsvp() {
 
         {/* Imagem Flores Brancas no final da dobra de RSVP */}
         <img
-          src="/assets/flores-brancas.png"
+          src="/assets/flores-brancas.webp"
           alt=""
+          width="400"
+          height="200"
           className="rsvp-flores-brancas-bottom"
           aria-hidden="true"
           loading="lazy"

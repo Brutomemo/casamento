@@ -70,8 +70,10 @@ export default function GiftsSection() {
 
       {/* Adorno floral lateral esquerdo em relevo seco */}
       <img
-        src="/assets/floral-vine-left.png"
+        src="/assets/floral-vine-left.webp"
         alt=""
+        width="200"
+        height="600"
         className="gifts-vine-left-img"
         aria-hidden="true"
         loading="lazy"
@@ -82,8 +84,10 @@ export default function GiftsSection() {
         {/* 1. Chancela Visual no Topo: Selo de Cera Oficial */}
         <div className="gifts-seal-wrapper">
           <img
-            src="/assets/selo.png"
+            src="/assets/selo.webp"
             alt="Selo de Cera Marcos &amp; Grazi"
+            width="100"
+            height="100"
             className="gifts-seal-img"
             loading="lazy"
             decoding="async"

@@ -9,7 +9,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 80,00',
     price: 'R$ 80,00',
     description: 'Para nossas maratonas de filmes no sofá, com pipoca quentinha e muito aconchego a dois.',
-    image: '/gifts/cinema-pipoca.jpg',
+    image: '/gifts/cinema-pipoca.webp',
     featured: false,
   },
   {
@@ -19,7 +19,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 56,00',
     price: 'R$ 56,00',
     description: 'Para moer os grãos na hora e completar nossa rotina de café fresco com a PrimaLatte.',
-    image: '/gifts/moedor-cafe.jpg',
+    image: '/gifts/moedor-cafe.webp',
     featured: false,
   },
   {
@@ -29,7 +29,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 809,90',
     price: 'R$ 809,90',
     description: 'Para começarmos nossas manhãs com aroma de café fresco e conversas à mesa.',
-    image: '/gifts/cafeteira-primalatte.jpg',
+    image: '/gifts/cafeteira-primalatte.webp',
     featured: false,
   },
 
@@ -40,7 +40,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 100,00',
     price: 'R$ 100,00',
     description: 'Para começar os sábados com waffles quentinhos, frutas frescas e muito carinho.',
-    image: '/gifts/cafe-manha.jpg',
+    image: '/gifts/cafe-manha.webp',
     featured: false,
   },
   {
@@ -50,7 +50,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 500,00',
     price: 'R$ 500,00',
     description: 'Uma contribuição especial para navegarmos juntos em alto-mar, celebrando nossos primeiros dias de casados.',
-    image: '/gifts/msc-virtuosa.jpg',
+    image: '/gifts/msc-virtuosa.webp',
     featured: true,
   },
   {
@@ -60,7 +60,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 200,00',
     price: 'R$ 200,00',
     description: 'Uma noite inesquecível para brindarmos ao amor com vista panorâmica da cidade no Terraço Itália.',
-    image: '/gifts/terraco-italia.jpg',
+    image: '/gifts/terraco-italia.webp',
     featured: false,
   },
   {
@@ -70,7 +70,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 160,00',
     price: 'R$ 160,00',
     description: 'Um rótulo especial reservado para brindarmos a uma data marcante da nossa nova história.',
-    image: '/gifts/vinho-comemorativo.jpg',
+    image: '/gifts/vinho-comemorativo.webp',
     featured: false,
   },
   {
@@ -80,7 +80,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 450,00',
     price: 'R$ 450,00',
     description: 'Um dia inesquecível de descanso, conforto e momentos a dois com vista inspiradora para o mar.',
-    image: '/gifts/hotel-lua-de-mel.jpg',
+    image: '/gifts/hotel-lua-de-mel.webp',
     featured: true,
   },
   {
@@ -90,7 +90,7 @@ const GIFTS_CATALOG = [
     value: 'R$ 300,00',
     price: 'R$ 300,00',
     description: 'Momentos especiais de descanso e sol à beira-mar compartilhando sorrisos com quem amamos.',
-    image: '/gifts/passeio-praia.jpg',
+    image: '/gifts/passeio-praia.webp',
     featured: false,
   },
 ]
@@ -133,8 +133,10 @@ export default function GiftsPage() {
 
       {/* Adorno floral lateral esquerdo */}
       <img
-        src="/assets/floral-vine-left.png"
+        src="/assets/floral-vine-left.webp"
         alt=""
+        width="200"
+        height="600"
         className="gifts-vine-left-img"
         aria-hidden="true"
         loading="lazy"
@@ -153,8 +155,10 @@ export default function GiftsPage() {
         <header className="gifts-page-header">
           <div className="gifts-seal-wrapper">
             <img
-              src="/assets/selo.png"
+              src="/assets/selo.webp"
               alt="Selo de Cera M&amp;G"
+              width="100"
+              height="100"
               className="gifts-seal-img"
               loading="lazy"
               decoding="async"
@@ -185,6 +189,8 @@ export default function GiftsPage() {
                   <img
                     src={item.image}
                     alt={item.title}
+                    width="600"
+                    height="400"
                     className="gift-card-img"
                     loading="lazy"
                     decoding="async"
@@ -233,6 +239,8 @@ export default function GiftsPage() {
                 <img
                   src={selectedGift.image}
                   alt={selectedGift.title}
+                  width="600"
+                  height="400"
                   className="gift-modal-img"
                   loading="lazy"
                   decoding="async"

@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react'
 import { probeImage, usePhotos } from '../hooks/usePhotos'
 
 const ASSET_CANDIDATES = [
-  '/assets/selo.png',
-  '/assets/floral-top.png',
-  '/assets/floral-bottom.png',
-  '/assets/floral-vine-left.png',
-  '/assets/floral-vine-right.png',
-  '/assets/floral-corner.png',
-  '/assets/bg-silk.png',
-  '/assets/envelope.jpg',
-  '/assets/envelope-mobile.jpg',
+  '/assets/selo.webp',
+  '/assets/floral-top.webp',
+  '/assets/floral-bottom.webp',
+  '/assets/floral-vine-left.webp',
+  '/assets/floral-vine-right.webp',
+  '/assets/floral-corner.webp',
+  '/assets/bg-silk.webp',
+  '/assets/envelope.webp',
+  '/assets/envelope-mobile.webp',
 ]
 
 function fileName(path: string) {

@@ -46,6 +46,8 @@ export default function StoryMessage() {
           <img
             src="/assets/alianca.svg"
             alt="Alianças de Casamento"
+            width="60"
+            height="60"
             className="story-rings-img"
             loading="lazy"
             decoding="async"
@@ -70,8 +72,10 @@ export default function StoryMessage() {
 
         {/* Ilustração floral de fechamento abaixo de Isaías 41:20 */}
         <img
-          src="/assets/flores.png"
+          src="/assets/flores.webp"
           alt=""
+          width="400"
+          height="200"
           className="story-flores-img"
           aria-hidden="true"
           decoding="async"

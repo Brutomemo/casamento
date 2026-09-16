@@ -101,8 +101,10 @@ export default function CelebrationDetails() {
 
       {/* Asset floral em relevo seco no final da dobra */}
       <img
-        src="/assets/floral-bottom.png"
+        src="/assets/floral-bottom.webp"
         alt=""
+        width="600"
+        height="200"
         className="celebration-floral-bottom"
         aria-hidden="true"
         decoding="async"

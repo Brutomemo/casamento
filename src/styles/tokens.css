@@ -28,7 +28,7 @@
   --seal-desktop-size: clamp(110px, 33vw, 230px);
 
   /* MOBILE: Altere aqui para ajustar o posicionamento no CELULAR sem afetar o desktop */
-  --seal-mobile-top: 57.5%;
-  --seal-mobile-left: 70%;
-  --seal-mobile-size: clamp(72px, 24vw, 130px);
+  --seal-mobile-top: 58.4%;
+  --seal-mobile-left: 70.8%;
+  --seal-mobile-size: clamp(80px, 26vw, 130px);
 }

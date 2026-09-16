@@ -102,7 +102,7 @@ img {
   z-index: 0;
   background:
     linear-gradient(180deg, rgba(245, 240, 232, 0.45) 0%, rgba(245, 240, 232, 0.25) 50%, rgba(245, 240, 232, 0.5) 100%),
-    url('/assets/bg.jpg') center / cover no-repeat;
+    url('/assets/bg.webp') center / cover no-repeat;
   filter: contrast(0.96) brightness(1.02);
   pointer-events: none;
 }
@@ -112,7 +112,7 @@ img {
   inset: -10%;
   z-index: 1;
   background:
-    url('/assets/bg-silk.png') center / cover no-repeat,
+    url('/assets/bg-silk.webp') center / cover no-repeat,
     radial-gradient(120% 80% at 20% 40%, #e8d8c8 0%, transparent 55%),
     radial-gradient(90% 70% at 80% 70%, #f3ebe1 0%, #f5f0e8 70%);
   animation: silk-drift 22s ease-in-out infinite alternate;
@@ -696,8 +696,7 @@ img {
   z-index: 0;
   pointer-events: none;
   background:
-    url('/assets/bg.png') center / cover no-repeat,
-    url('/assets/bg.jpg') center / cover no-repeat,
+    url('/assets/bg.webp') center / cover no-repeat,
     var(--cream);
   filter: contrast(0.98) brightness(1.02);
 }
@@ -1127,7 +1126,7 @@ img {
 .editorial-paper-overlay {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg.png');
+  background-image: url('/assets/bg.webp');
   background-repeat: repeat;
   background-size: 400px auto;
   opacity: 0.45;
@@ -1359,7 +1358,7 @@ img {
 .gifts-paper-overlay {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg.png');
+  background-image: url('/assets/bg.webp');
   background-repeat: repeat;
   background-size: 400px auto;
   opacity: 0.45;
@@ -2007,7 +2006,7 @@ img {
 .rsvp-paper-overlay {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg.png');
+  background-image: url('/assets/bg.webp');
   background-repeat: repeat;
   background-size: 400px auto;
   opacity: 0.45;
@@ -2364,7 +2363,7 @@ img {
 .footer-paper-overlay {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg.png');
+  background-image: url('/assets/bg.webp');
   background-repeat: repeat;
   background-size: 400px auto;
   opacity: 0.45;
@@ -2529,8 +2528,7 @@ img {
   width: 100%;
   background:
     linear-gradient(180deg, rgba(250, 246, 240, 0.35) 0%, rgba(250, 246, 240, 0.65) 100%),
-    url('/assets/bg.png') center / cover no-repeat,
-    url('/assets/bg.jpg') center / cover no-repeat,
+    url('/assets/bg.webp') center / cover no-repeat,
     var(--cream);
   filter: contrast(0.97) brightness(1.01);
   padding: clamp(70px, 12vh, 120px) var(--page-pad);
@@ -2656,8 +2654,7 @@ img {
   width: 100%;
   background:
     linear-gradient(180deg, rgba(245, 239, 235, 0.4) 0%, rgba(245, 239, 235, 0.75) 100%),
-    url('/assets/bg.png') center / cover no-repeat,
-    url('/assets/bg.jpg') center / cover no-repeat,
+    url('/assets/bg.webp') center / cover no-repeat,
     #f5efeb;
   filter: contrast(0.97) brightness(1.01);
   padding: clamp(80px, 14vh, 140px) var(--page-pad);

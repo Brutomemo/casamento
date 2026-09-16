@@ -28,7 +28,7 @@ function SealFallback() {
 
 export default function WaxSeal({
   initials = '',
-  src = '/assets/selo.png',
+  src = '/assets/selo.webp',
   onClick,
   disabled = false,
   style,
@@ -49,6 +49,10 @@ export default function WaxSeal({
           className="wax-seal-img"
           src={src}
           alt=""
+          width="120"
+          height="120"
+          loading="lazy"
+          decoding="async"
           draggable={false}
           onError={() => setUseImage(false)}
         />

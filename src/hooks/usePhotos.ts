@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const EXTS = ['jpg', 'jpeg', 'png', 'webp'] as const
+const EXTS = ['webp', 'jpg', 'jpeg', 'png'] as const
 const PHOTO_COUNT = 16
 
 function probeImage(src: string): Promise<boolean> {

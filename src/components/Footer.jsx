@@ -7,8 +7,10 @@ export default function Footer() {
       <div className="footer-content">
         {/* Selo de Cera Oficial */}
         <img
-          src="/assets/selo.png"
+          src="/assets/selo.webp"
           alt="Selo de Cera Marcos &amp; Grazi"
+          width="85"
+          height="85"
           className="footer-seal"
           loading="lazy"
           decoding="async"
@@ -22,6 +24,8 @@ export default function Footer() {
           <img
             src="/assets/alianca.svg"
             alt="Alianças de Casamento"
+            width="44"
+            height="44"
             className="footer-rings-img"
             loading="lazy"
             decoding="async"

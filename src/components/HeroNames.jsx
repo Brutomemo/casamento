@@ -93,8 +93,10 @@ export default function HeroNames() {
         <img
           ref={photoRef}
           className="hero-bg-photo"
-          src="/photos/1.jpeg"
+          src="/photos/1.webp"
           alt="Marcos e Grazi"
+          width="1920"
+          height="1080"
           decoding="async"
           loading="eager"
           fetchPriority="high"

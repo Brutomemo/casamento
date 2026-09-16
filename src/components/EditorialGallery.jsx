@@ -83,28 +83,28 @@ export default function EditorialGallery() {
 
   // Exclui a foto /photos/1 para não repetir o Hero principal
   const filteredPhotos = allPhotos.filter(
-    (src) => !src.endsWith('/1.jpeg') && !src.endsWith('/1.png') && !src.endsWith('/1.jpg')
+    (src) => !src.endsWith('/1.webp') && !src.endsWith('/1.jpeg') && !src.endsWith('/1.png') && !src.endsWith('/1.jpg')
   )
 
   const photosToDisplay =
     filteredPhotos.length > 0
       ? filteredPhotos
       : [
-          '/photos/2.jpeg',
-          '/photos/3.jpeg',
-          '/photos/4.jpeg',
-          '/photos/5.jpeg',
-          '/photos/6.jpeg',
-          '/photos/7.jpeg',
-          '/photos/8.jpeg',
-          '/photos/9.jpeg',
-          '/photos/10.jpeg',
-          '/photos/11.jpeg',
-          '/photos/12.jpeg',
-          '/photos/13.jpeg',
-          '/photos/14.jpeg',
-          '/photos/15.jpeg',
-          '/photos/16.jpeg',
+          '/photos/2.webp',
+          '/photos/3.webp',
+          '/photos/4.webp',
+          '/photos/5.webp',
+          '/photos/6.webp',
+          '/photos/7.webp',
+          '/photos/8.webp',
+          '/photos/9.webp',
+          '/photos/10.webp',
+          '/photos/11.webp',
+          '/photos/12.webp',
+          '/photos/13.webp',
+          '/photos/14.webp',
+          '/photos/15.webp',
+          '/photos/16.webp',
         ]
 
   return (
@@ -141,6 +141,8 @@ export default function EditorialGallery() {
                     <img
                       src={src}
                       alt={`Marcos e Grazi — Retrato ${photoNum}`}
+                      width="800"
+                      height="1000"
                       loading={idx === 0 ? 'eager' : 'lazy'}
                       decoding="async"
                       className="photo-stack-img"
