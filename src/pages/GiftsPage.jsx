@@ -156,7 +156,8 @@ export default function GiftsPage() {
               src="/assets/selo.png"
               alt="Selo de Cera M&amp;G"
               className="gifts-seal-img"
-              loading="eager"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <p className="gifts-eyebrow">NOSSA LISTA DE DESEJOS</p>
@@ -234,6 +235,7 @@ export default function GiftsPage() {
                   alt={selectedGift.title}
                   className="gift-modal-img"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             )}

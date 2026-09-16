@@ -97,6 +97,7 @@ export default function HeroNames() {
           alt="Marcos e Grazi"
           decoding="async"
           loading="eager"
+          fetchPriority="high"
         />
         {/* Scrim cinematográfico & Névoa de degradê na base da foto */}
         <div className="hero-bottom-fog" aria-hidden="true" />
