@@ -8,10 +8,10 @@ function padZero(num) {
 
 const officialSchedule = [
   { time: '12h00', title: 'Chegada & Recepção' },
-  { time: '12h30', title: 'Cerimônia' },
-  { time: '13h30', title: 'Almoço & Brinde' },
+  { time: '13h00', title: 'Cerimônia' },
+  { time: '14h00', title: 'Almoço' },
   { time: '15h30', title: 'Celebração' },
-  { time: '18h00', title: 'Encerramento' },
+  { time: '20h00', title: 'Encerramento' },
 ]
 
 export default function CelebrationDetails() {

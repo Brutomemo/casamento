@@ -11,6 +11,9 @@ export const wedding = {
   rsvpDeadline: '01 · NOV · 2026',
   ceremonyTime: '16h00',
   receptionTime: '18h30',
+  pixGrazi: '11989128745',
+  pixMarcos: '11984335153',
+  registryUrl: 'https://site.iasei.com.br/marcosegrazi',
 }
 
 export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(wedding.mapsQuery)}`

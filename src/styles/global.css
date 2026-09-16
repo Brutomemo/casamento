@@ -1112,44 +1112,882 @@ img {
   padding-top: 4px;
 }
 
-/* ——— Gallery ——— */
-.gallery {
-  background: var(--cream);
-  padding: 28px 0 36px;
-}
-
-.gallery-track {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  margin: 0 auto;
-  padding: 4px var(--page-pad) 8px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-x: contain;
-}
-
-.gallery-track::-webkit-scrollbar {
-  display: none;
-}
-
-.gallery-thumb {
-  flex-shrink: 0;
-  width: min(148px, 42vw);
-  aspect-ratio: 3 / 4;
-  height: auto;
-  border-radius: 8px;
+/* ============================================================
+   ENSAIO EDITORIAL (DIÁRIO DE BORDO & ENSAIO FOTOGRÁFICO ESTÁTICO)
+   - Montado diretamente sobre a textura contínua de papel algodão (#f5efeb + bg.png)
+   - Asimetria vertical, passe-partout tátil com sombra difusa suave
+   - Microtipografia em caixa alta com alto letter-spacing
+   ============================================================ */
+.editorial-gallery {
+  position: relative;
+  background-color: var(--cream, #f5efeb);
+  padding: clamp(60px, 10vw, 120px) var(--page-pad, 20px);
   overflow: hidden;
-  scroll-snap-align: start;
 }
 
-.gallery-thumb img,
-.gallery-thumb svg {
+.editorial-paper-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/bg.png');
+  background-repeat: repeat;
+  background-size: 400px auto;
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.editorial-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Header Editorial */
+.editorial-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 8vw, 88px);
+}
+
+.editorial-eyebrow {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(10px, 1.8vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-light, #8a7b70);
+  margin-bottom: 12px;
+}
+
+.editorial-title {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-heading, #2c221e);
+  margin: 0 0 18px;
+  line-height: 1.2;
+}
+
+.editorial-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.editorial-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160, 130, 110, 0.35), transparent);
+}
+
+.editorial-divider-dot {
+  font-size: 7px;
+  color: var(--gold, #c5a059);
+  opacity: 0.7;
+}
+
+/* Grid Editorial Vertical Assimétrico */
+.editorial-grid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 9vw, 110px);
+}
+
+.editorial-item {
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Variações de Layout Assimétrico */
+.editorial-item.layout-left {
+  margin-right: auto;
+  max-width: 680px;
+  width: 88%;
+}
+
+.editorial-item.layout-right {
+  margin-left: auto;
+  max-width: 680px;
+  width: 88%;
+}
+
+.editorial-item.layout-center {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 760px;
+  width: 94%;
+}
+
+.editorial-item.layout-offset-left {
+  margin-left: min(4vw, 40px);
+  margin-right: auto;
+  max-width: 620px;
+  width: 82%;
+}
+
+.editorial-item.layout-offset-right {
+  margin-left: auto;
+  margin-right: min(4vw, 40px);
+  max-width: 620px;
+  width: 82%;
+}
+
+.editorial-item.layout-center-wide {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 860px;
+  width: 100%;
+}
+
+/* Passe-partout Tátil e Moldura */
+.editorial-passepartout {
+  padding: clamp(12px, 3vw, 22px);
+  background: #faf6f2;
+  border: 1px solid rgba(185, 165, 145, 0.22);
+  box-shadow:
+    0 18px 45px rgba(35, 20, 10, 0.07),
+    0 3px 10px rgba(35, 20, 10, 0.03);
+  border-radius: 2px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.editorial-passepartout:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 22px 55px rgba(35, 20, 10, 0.09),
+    0 4px 14px rgba(35, 20, 10, 0.04);
+}
+
+.editorial-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: #eae2d9;
+}
+
+.editorial-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: contrast(1.02) saturate(1.03);
+  mix-blend-mode: normal;
+  border-radius: 0;
+  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .editorial-passepartout:hover .editorial-img {
+    transform: scale(1.012);
+  }
+}
+
+/* Legendas em Microtipografia Editorial */
+.editorial-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: clamp(12px, 2.5vw, 18px);
+  padding-top: 10px;
+  border-top: 1px solid rgba(185, 165, 145, 0.15);
+}
+
+.caption-tag {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(9px, 1.6vw, 10px);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold, #c5a059);
+}
+
+.caption-title {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(9px, 1.6vw, 10px);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-light, #8a7b70);
+}
+
+@media (max-width: 640px) {
+  .editorial-item.layout-left,
+  .editorial-item.layout-right,
+  .editorial-item.layout-offset-left,
+  .editorial-item.layout-offset-right,
+  .editorial-item.layout-center,
+  .editorial-item.layout-center-wide {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .editorial-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* ============================================================
+   DOBRA EDITORIAL DE PRESENTES (GESTO DE AFETO & CARINHO)
+   - Selo de cera oficial (selo.png) em mix-blend-mode: multiply
+   - Fundo contínuo de papel algodão (#f5efeb + bg.png overlay)
+   - Cartões discretos em linha fina e tipografia serifada
+   ============================================================ */
+.gifts-section {
+  position: relative;
+  background-color: var(--cream, #f5efeb);
+  padding: clamp(60px, 9vw, 100px) var(--page-pad, 20px);
+  overflow: hidden;
+  text-align: center;
+}
+
+.gifts-paper-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/bg.png');
+  background-repeat: repeat;
+  background-size: 400px auto;
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gifts-vine-left-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: clamp(260px, 45vh, 500px);
+  width: auto;
+  pointer-events: none;
+  opacity: 0.75;
+  mix-blend-mode: multiply;
+  z-index: 1;
+  filter: contrast(1.04);
+}
+
+@media (max-width: 640px) {
+  .gifts-vine-left-img {
+    height: clamp(180px, 35vh, 300px);
+    opacity: 0.45;
+  }
+}
+
+.gifts-container {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.gifts-seal-wrapper {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.gifts-seal-img {
+  width: clamp(80px, 20vw, 95px);
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) saturate(1.02);
+  transition: transform 0.6s ease;
+}
+
+.gifts-seal-img:hover {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+.gifts-eyebrow {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(10px, 1.8vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-light, #8a7b70);
+  margin-bottom: 10px;
+}
+
+.gifts-title {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text, #2c221e);
+  margin: 0 0 16px;
+}
+
+.gifts-message {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--text-heading, #3a2e28);
+  max-width: 520px;
+  margin: 0 auto 24px;
+  font-weight: 400;
+}
+
+.gifts-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 180px;
+  margin: 0 auto 36px;
+}
+
+.gifts-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160, 130, 110, 0.35), transparent);
+}
+
+.gifts-divider-dot {
+  font-size: 7px;
+  color: var(--gold, #c5a059);
+  opacity: 0.7;
+}
+
+/* Colunas Gêmeas & Cards Editoriais Translúcidos */
+.gifts-grid-pix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.gifts-card-editorial {
+  position: relative;
+  padding: 24px 20px;
+  background: rgba(250, 246, 242, 0.45);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 2px;
+  text-align: center;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 10px 30px rgba(35, 20, 10, 0.03);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.gifts-card-editorial:hover {
+  border-color: rgba(197, 160, 89, 0.6);
+  box-shadow: 0 14px 36px rgba(35, 20, 10, 0.05);
+  transform: translateY(-2px);
+}
+
+.gifts-online-wrapper {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.gifts-card-wide {
+  padding: 22px 20px;
+}
+
+.gifts-card-tag {
+  display: block;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold, #c5a059);
+  margin-bottom: 12px;
+}
+
+.gifts-key-display {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  color: var(--text-heading, #2c221e);
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+  word-break: break-all;
+  user-select: all;
+}
+
+.gifts-copy-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--text-heading, #2c221e);
+  border: none;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.5);
+  padding: 4px 10px 6px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gifts-copy-action:hover {
+  color: var(--gold, #c5a059);
+  border-bottom-color: var(--gold, #c5a059);
+}
+
+.gifts-toast-msg {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #4a6644;
+  margin-top: 10px;
+  margin-bottom: 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.gifts-link-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-heading, #2c221e);
+  text-decoration: none;
+  padding: 4px 10px 6px;
+  border-bottom: 1px solid var(--gold, #c5a059);
+  transition: all 0.3s ease;
+}
+
+.gifts-link-action:hover {
+  color: var(--gold, #c5a059);
+  border-bottom-color: var(--text-heading, #2c221e);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   PÁGINA DEDICADA DE VALES & EXPERIÊNCIAS (/presentes)
+   ============================================================ */
+.gifts-page-root {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--cream, #f5efeb);
+  padding: clamp(32px, 6vw, 64px) var(--page-pad, 20px) 80px;
+  overflow: hidden;
+}
+
+.gifts-nav-top {
+  max-width: 1080px;
+  margin: 0 auto 32px;
+  text-align: left;
+}
+
+.gifts-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-light, #8a7b70);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.gifts-back-link:hover {
+  color: var(--gold, #c5a059);
+}
+
+.gifts-page-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.gifts-page-header {
+  text-align: center;
+  margin-bottom: clamp(40px, 7vw, 70px);
+}
+
+.gifts-page-title {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-heading, #2c221e);
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+.gifts-page-subtitle {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(0.98rem, 2.2vw, 1.12rem);
+  line-height: 1.7;
+  color: var(--text-heading, #3a2e28);
+  max-width: 580px;
+  margin: 0 auto 24px;
+  font-weight: 400;
+}
+
+.gifts-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 3.5vw, 32px);
+  text-align: left;
+}
+
+.gift-card-item {
+  position: relative;
+  padding: clamp(24px, 4vw, 36px);
+  background: rgba(250, 246, 242, 0.45);
+  border: 1px solid rgba(184, 150, 106, 0.35);
+  border-radius: 2px;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 10px 30px rgba(35, 20, 10, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gift-card-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(184, 150, 106, 0.65);
+  box-shadow: 0 16px 42px rgba(35, 20, 10, 0.05);
+}
+
+.gift-card-img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 220px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 48%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse 90% 85% at 50% 48%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gift-card-img-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 65%, var(--cream, #f5efeb) 100%),
+              radial-gradient(ellipse at center, transparent 60%, var(--cream, #f5efeb) 100%);
+}
+
+.gift-card-img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-height: 220px;
+  object-fit: contain;
+  object-position: center center;
+  padding: 10px 16px;
+  border: none;
+  filter: contrast(0.97) saturate(0.92);
+  transition: transform 0.5s ease;
+}
+
+.gift-card-item:hover .gift-card-img {
+  transform: scale(1.025);
+}
+
+.gift-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+/* Card em Destaque Editorial (Largura Dupla) */
+.gift-card-item.gift-card-featured {
+  grid-column: span 2;
+  background: rgba(252, 248, 243, 0.7);
+  border: 1px solid rgba(197, 160, 89, 0.5);
+  box-shadow: 0 14px 40px rgba(35, 20, 10, 0.04);
+}
+
+.gift-card-featured .gift-card-img-wrapper {
+  aspect-ratio: 16 / 10;
+  max-height: 220px;
+}
+
+.gift-card-featured .gift-card-img {
+  max-height: 220px;
+}
+
+.gift-card-featured .gift-card-title {
+  font-size: clamp(1.3rem, 3.2vw, 1.6rem);
+}
+
+.gift-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.gift-card-category {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold, #c5a059);
+}
+
+.gift-card-price {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-weight: 400;
+  color: var(--text-heading, #2c221e);
+}
+
+.gift-card-title {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(1.15rem, 2.8vw, 1.35rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-heading, #2c221e);
+  margin: 0 0 10px;
+  line-height: 1.35;
+}
+
+.gift-card-desc {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(0.9rem, 1.8vw, 0.98rem);
+  line-height: 1.6;
+  color: var(--text-light, #7a6b60);
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.gift-card-action {
+  background: transparent;
+  color: var(--text-heading, #2c221e);
+  border: none;
+  border-bottom: 1px solid transparent;
+  padding: 4px 0 2px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.gift-card-action:hover {
+  color: var(--gold, #c5a059);
+  border-bottom-color: var(--gold, #c5a059);
+  transform: translateX(3px);
+}
+
+@media (max-width: 680px) {
+  .gifts-catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gift-card-item.gift-card-featured {
+    grid-column: span 1;
+  }
+}
+
+/* Modal / Drawer Editorial */
+.gift-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(30, 20, 15, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.gift-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: #faf6f2;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  border-radius: 2px;
+  padding: clamp(24px, 5vw, 36px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.gift-modal-img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 220px;
+  margin: 8px 0 18px;
+  overflow: hidden;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 48%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse 90% 85% at 50% 48%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gift-modal-img-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 65%, var(--cream, #f5efeb) 100%),
+              radial-gradient(ellipse at center, transparent 60%, var(--cream, #f5efeb) 100%);
+}
+
+.gift-modal-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  object-position: center center;
+  padding: 10px 16px;
+  border: none;
+  filter: contrast(0.97) saturate(0.92);
+}
+
+.gift-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--text-light, #8a7b70);
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.3s ease;
+}
+
+.gift-modal-close:hover {
+  color: var(--text-heading, #2c221e);
+}
+
+.gift-modal-title {
+  font-family: var(--font-serif, serif);
+  font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+  font-style: italic;
+  color: var(--text-heading, #2c221e);
+  margin: 8px 0 6px;
+}
+
+.gift-modal-value {
+  font-family: var(--font-serif, serif);
+  font-size: 1.25rem;
+  color: var(--gold, #c5a059);
+  margin-bottom: 10px;
+}
+
+.gift-modal-desc {
+  font-family: var(--font-serif, serif);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-heading, #3a2e28);
+  margin-bottom: 16px;
+}
+
+.gift-modal-instruction {
+  font-family: var(--font-serif, serif);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-light, #7a6b60);
+  margin-bottom: 20px;
+}
+
+.gift-modal-pix-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.gift-modal-pix-box {
+  padding: 14px 16px;
+  background: rgba(245, 239, 235, 0.8);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.gift-modal-pix-tag {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--gold, #c5a059);
+  text-transform: uppercase;
+}
+
+.gift-modal-pix-key {
+  font-family: var(--font-serif, serif);
+  font-size: 0.95rem;
+  color: var(--text-heading, #2c221e);
+  word-break: break-all;
+}
+
+.gift-modal-footer {
+  margin-top: 20px;
+}
+
+.gift-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  background: #25d366;
+  color: #ffffff;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.25);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.gift-whatsapp-btn:hover {
+  background: #1fbe5a;
+  transform: translateY(-1px);
 }
 
 /* ——— RSVP ——— */

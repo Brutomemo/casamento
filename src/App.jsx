@@ -3,21 +3,38 @@ import EnvelopeHero from './components/EnvelopeHero'
 import HeroNames from './components/HeroNames'
 import StoryMessage from './components/StoryMessage'
 import CelebrationDetails from './components/CelebrationDetails'
-import Gallery from './components/Gallery'
+import EditorialGallery from './components/EditorialGallery'
+import GiftsSection from './components/GiftsSection'
 import Rsvp from './components/Rsvp'
 import Footer from './components/Footer'
 import AssetsPage from './pages/assets'
+import GiftsPage from './pages/GiftsPage'
 import { useLenis } from './hooks/useLenis'
 
 function Invitation() {
   useLenis()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const targetId = window.location.hash.replace('#', '')
+      const el = document.getElementById(targetId)
+      if (el) {
+        const timer = setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }, 150)
+        return () => clearTimeout(timer)
+      }
+    }
+    return undefined
+  }, [])
 
   return (
     <div className="page page-enter">
       <HeroNames />
       <StoryMessage />
       <CelebrationDetails />
-      <Gallery />
+      <EditorialGallery />
+      <GiftsSection />
       <Rsvp />
       <Footer />
     </div>
@@ -25,7 +42,21 @@ function Invitation() {
 }
 
 function Cover() {
-  const [phase, setPhase] = useState('cover')
+  const [phase, setPhase] = useState(() => {
+    if (
+      typeof window !== 'undefined' &&
+      (window.location.hash || sessionStorage.getItem('envelope_opened') === 'true')
+    ) {
+      return 'invite'
+    }
+    return 'cover'
+  })
+
+  useEffect(() => {
+    if (phase === 'invite') {
+      sessionStorage.setItem('envelope_opened', 'true')
+    }
+  }, [phase])
 
   useEffect(() => {
     const locked = phase !== 'invite'
@@ -78,6 +109,10 @@ export default function App() {
 
   if (path === '/assets') {
     return <AssetsPage />
+  }
+
+  if (path === '/presentes' || path === '/lista') {
+    return <GiftsPage />
   }
 
   return <Cover />
