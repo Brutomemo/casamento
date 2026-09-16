@@ -7,6 +7,10 @@ gsap.registerPlugin(ScrollTrigger)
 
 export function useLenis() {
   useEffect(() => {
+    // No mobile (<= 768px), permite a rolagem nativa acelerada por hardware a 60fps sem intercepção JS
+    const isMobile = typeof window !== 'undefined' && (window.innerWidth <= 768 || 'ontouchstart' in window)
+    if (isMobile) return
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

@@ -56,17 +56,20 @@ export default function EnvelopeHero({ phase, onOpen }) {
       <div className="invite-card">
         <div className="envelope-scene">
           <div className="envelope-bg-picture" aria-hidden="true">
-            <img
-              className="envelope-bg-img"
-              src="/assets/envelope.webp"
-              alt="Envelope físico do convite de casamento"
-              width="4016"
-              height="5622"
-              draggable="false"
-              decoding="async"
-              loading="eager"
-              fetchPriority="high"
-            />
+            <picture>
+              <source media="(max-width: 768px)" srcSet="/assets/envelope-mobile.webp" />
+              <img
+                className="envelope-bg-img"
+                src="/assets/envelope.webp"
+                alt="Envelope físico do convite de casamento"
+                width="4016"
+                height="5622"
+                draggable="false"
+                decoding="async"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </picture>
           </div>
 
           {/* Camada de textura orgânica de papel e luz natural difusa (Overlay) */}
