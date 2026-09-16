@@ -1276,3 +1276,87 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================
+   FASE 2 / ETAPA 2 — DOBRA EDITORIAL: A MENSAGEM / NOSSA HISTÓRIA
+   - Respiro de livro de arte em papel algodão: fundo var(--cream)
+   - Transição orgânica a partir do Hero sem linhas duras ou divisórias
+   ============================================================ */
+.story-message-section {
+  position: relative;
+  width: 100%;
+  background: var(--cream);
+  padding: clamp(80px, 15vh, 140px) var(--page-pad);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.story-message-container {
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 4vh, 32px);
+}
+
+/* EYEBROW / ANTETÍTULO */
+.story-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+/* CORPO DO MANIFESTO */
+.story-body {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.15rem, 3.8vw, 1.45rem);
+  line-height: 1.8;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.story-body p {
+  margin: 0;
+}
+
+/* CITAÇÃO BÍBLICA DE FECHAMENTO */
+.story-quote {
+  margin-top: clamp(24px, 4vh, 40px);
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.quote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1rem, 3.2vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.92;
+}
+
+.quote-cite {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import EnvelopeHero from './components/EnvelopeHero'
 import HeroNames from './components/HeroNames'
+import StoryMessage from './components/StoryMessage'
 import Countdown from './components/Countdown'
 import InfoCards from './components/InfoCards'
 import Timeline from './components/Timeline'
@@ -16,6 +17,7 @@ function Invitation() {
   return (
     <div className="page page-enter">
       <HeroNames />
+      <StoryMessage />
       <Countdown />
       <InfoCards />
       <Timeline />
