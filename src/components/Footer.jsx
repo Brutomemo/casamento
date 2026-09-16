@@ -1,10 +1,57 @@
 export default function Footer() {
   return (
-    <footer className="footer">
-      <p className="footer-mono">M &amp; G</p>
-      <div className="footer-rule" aria-hidden="true" />
-      <p className="footer-date">29 · 11 · 2026 · SÃO PAULO</p>
-      <p className="footer-credit">feito com amor ♡</p>
+    <footer className="footer" aria-label="Rodapé do Convite">
+      {/* Overlay de textura de papel de algodão */}
+      <div className="footer-paper-overlay" aria-hidden="true" />
+
+      <div className="footer-content">
+        {/* Selo de Cera Oficial */}
+        <img
+          src="/assets/selo.png"
+          alt="Selo de Cera Marcos &amp; Grazi"
+          className="footer-seal"
+          loading="lazy"
+          decoding="async"
+        />
+
+        {/* Nomes por Extenso */}
+        <h3 className="footer-names">Marcos &amp; Grazi</h3>
+
+        {/* Imagem Editorial de Alianças */}
+        <div className="footer-rings-wrapper">
+          <img
+            src="/assets/alianca.svg"
+            alt="Alianças de Casamento"
+            className="footer-rings-img"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        {/* Separador Analógico com micro-losango */}
+        <div className="footer-divider" aria-hidden="true">
+          <span className="footer-divider-line" />
+          <span className="footer-divider-dot">◆</span>
+          <span className="footer-divider-line" />
+        </div>
+
+        {/* Data & Local em Microtipografia */}
+        <p className="footer-date">29 DE NOVEMBRO DE 2026 · SÃO PAULO</p>
+
+        {/* Assinatura Afetiva Editorial */}
+        <p className="footer-signature">Com todo o nosso carinho</p>
+
+        {/* Vinheta Floral de Encerramento (Relevo Seco) */}
+        <img
+          src="/assets/floral-bottom.png"
+          alt=""
+          className="footer-floral-bottom"
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </footer>
   )
 }
+

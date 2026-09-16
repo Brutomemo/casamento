@@ -14,20 +14,6 @@ import { useLenis } from './hooks/useLenis'
 function Invitation() {
   useLenis()
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
-      const targetId = window.location.hash.replace('#', '')
-      const el = document.getElementById(targetId)
-      if (el) {
-        const timer = setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth' })
-        }, 150)
-        return () => clearTimeout(timer)
-      }
-    }
-    return undefined
-  }, [])
-
   return (
     <div className="page page-enter">
       <HeroNames />
@@ -42,21 +28,7 @@ function Invitation() {
 }
 
 function Cover() {
-  const [phase, setPhase] = useState(() => {
-    if (
-      typeof window !== 'undefined' &&
-      (window.location.hash || sessionStorage.getItem('envelope_opened') === 'true')
-    ) {
-      return 'invite'
-    }
-    return 'cover'
-  })
-
-  useEffect(() => {
-    if (phase === 'invite') {
-      sessionStorage.setItem('envelope_opened', 'true')
-    }
-  }, [phase])
+  const [phase, setPhase] = useState('cover')
 
   useEffect(() => {
     const locked = phase !== 'invite'

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 40" width="48" height="30" fill="none">
+  <defs>
+    <linearGradient id="goldRingsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c5a059" />
+      <stop offset="35%" stop-color="#edd9b0" />
+      <stop offset="65%" stop-color="#b89047" />
+      <stop offset="100%" stop-color="#8a692b" />
+    </linearGradient>
+  </defs>
+  <!-- Aliança Noiva -->
+  <circle cx="24" cy="22" r="12" stroke="url(#goldRingsGrad)" stroke-width="2" fill="none" opacity="0.9" />
+  <!-- Aliança Noivo -->
+  <circle cx="40" cy="22" r="12" stroke="url(#goldRingsGrad)" stroke-width="2" fill="none" opacity="0.9" />
+  <!-- Sobreposição Entrançada de Alianças -->
+  <path d="M 32.5 13 A 12 12 0 0 1 36 22" stroke="url(#goldRingsGrad)" stroke-width="2" fill="none" stroke-linecap="round" />
+  <!-- Brilho de Diamante Solitário -->
+  <polygon points="24,4 25.5,8 29.5,9.5 25.5,11 24,15 22.5,11 18.5,9.5 22.5,8" fill="url(#goldRingsGrad)" opacity="0.95" />
+</svg>

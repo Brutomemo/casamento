@@ -41,6 +41,17 @@ export default function StoryMessage() {
   return (
     <section className="story-message-section" ref={containerRef}>
       <div className="story-message-container">
+        {/* Emblem de Alianças de Casamento no topo da segunda dobra */}
+        <div className="story-rings-wrapper">
+          <img
+            src="/assets/alianca.svg"
+            alt="Alianças de Casamento"
+            className="story-rings-img"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
         <p className="story-eyebrow">No Tempo Certo</p>
         <div className="story-body">
           <p>Há encontros que nascem de propósitos.</p>

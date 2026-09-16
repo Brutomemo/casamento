@@ -144,7 +144,7 @@ export default function GiftsPage() {
       <div className="gifts-page-container">
         {/* Navegação de Retorno */}
         <nav className="gifts-nav-top">
-          <a href="/#presentes" className="gifts-back-link">
+          <a href="/" className="gifts-back-link">
             ← VOLTAR AO CONVITE
           </a>
         </nav>
