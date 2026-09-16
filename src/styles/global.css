@@ -1248,12 +1248,29 @@ img {
   object-position: center 30%;
 }
 
+.photo-stack-img-wrapper.is-luminescencia .photo-stack-img {
+  object-position: 25% center;
+}
+
+.photo-stack-img-wrapper.is-landscape-full {
+  aspect-ratio: 16 / 10;
+  background: #faf6f2;
+}
+
+.photo-stack-img-wrapper.is-landscape-full .photo-stack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
 @media (max-width: 600px) {
   .photo-stack-img-wrapper {
     aspect-ratio: 4 / 5;
   }
 
-  .photo-stack-img-wrapper.is-landscape {
+  .photo-stack-img-wrapper.is-landscape,
+  .photo-stack-img-wrapper.is-landscape-full {
     aspect-ratio: 16 / 10;
   }
 }
@@ -2861,4 +2878,82 @@ img {
   line-height: 1.5;
   color: var(--text-light, #7a6b60);
   font-style: italic;
+}
+
+/* ============================================================
+   SISTEMA DE MÚSICA GLOBAL & CONTROLE EDITORIAL FLUTUANTE
+   ============================================================ */
+.audio-control-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 90;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cream, #f5efeb);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  box-shadow: 0 6px 20px rgba(44, 39, 36, 0.12), 0 0 1px rgba(197, 160, 89, 0.3);
+  color: var(--gold, #c5a059);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Área de clique expandida (hitbox 48x48px) */
+.audio-control-hitbox {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+}
+
+.audio-control-btn:hover,
+.audio-control-btn:focus-visible {
+  transform: scale(1.06);
+  background-color: #faf5f0;
+  border-color: var(--gold, #c5a059);
+  box-shadow: 0 8px 24px rgba(44, 39, 36, 0.16), 0 0 0 3px rgba(197, 160, 89, 0.18);
+}
+
+.audio-control-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animação suave de micro-pulso nas ondas de áudio */
+@keyframes audioWavePulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.audio-control-btn.is-playing .wave-2 {
+  animation: audioWavePulse 1.4s ease-in-out infinite;
+}
+
+.audio-control-btn.is-playing .wave-3 {
+  animation: audioWavePulse 1.4s ease-in-out infinite 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audio-control-btn.is-playing .wave-2,
+  .audio-control-btn.is-playing .wave-3 {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .audio-control-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+  }
 }

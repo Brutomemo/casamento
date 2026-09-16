@@ -137,7 +137,7 @@ export default function EditorialGallery() {
                 style={{ zIndex: idx + 1 }}
               >
                 <div className="photo-stack-passepartout">
-                  <div className={`photo-stack-img-wrapper ${idx === 0 ? 'is-landscape' : ''}`}>
+                  <div className={`photo-stack-img-wrapper ${idx === 0 ? 'is-landscape' : ''} ${meta.roman === 'XI' ? 'is-luminescencia' : ''} ${meta.roman === 'XIV' || meta.roman === 'XV' ? 'is-landscape-full' : ''}`}>
                     <img
                       src={src}
                       alt={`Marcos e Grazi — Retrato ${photoNum}`}

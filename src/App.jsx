@@ -7,6 +7,8 @@ import EditorialGallery from './components/EditorialGallery'
 import GiftsSection from './components/GiftsSection'
 import Rsvp from './components/Rsvp'
 import Footer from './components/Footer'
+import AudioControl from './components/AudioControl'
+import { AudioProvider } from './context/AudioContext'
 import AssetsPage from './pages/assets'
 import GiftsPage from './pages/GiftsPage'
 import { useLenis } from './hooks/useLenis'
@@ -79,13 +81,22 @@ function Cover() {
 export default function App() {
   const path = window.location.pathname.replace(/\/$/, '') || '/'
 
-  if (path === '/assets') {
-    return <AssetsPage />
+  const renderContent = () => {
+    if (path === '/assets') {
+      return <AssetsPage />
+    }
+
+    if (path === '/presentes' || path === '/lista') {
+      return <GiftsPage />
+    }
+
+    return <Cover />
   }
 
-  if (path === '/presentes' || path === '/lista') {
-    return <GiftsPage />
-  }
-
-  return <Cover />
+  return (
+    <AudioProvider>
+      {renderContent()}
+      <AudioControl />
+    </AudioProvider>
+  )
 }
