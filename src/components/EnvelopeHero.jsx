@@ -33,6 +33,9 @@ export default function EnvelopeHero({ phase, onOpen }) {
         draggable="false"
       />
 
+      {/* Camada de névoa de contraste superior (abaixo do texto, acima da imagem) */}
+      <div className="top-fog-overlay" aria-hidden="true" />
+
       {/* Nomes e Data em tipografia editorial premium */}
       <header className="hero-opening-header">
         <p className="opening-eyebrow">Convite de Casamento</p>
