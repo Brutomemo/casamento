@@ -704,19 +704,23 @@ img {
 }
 
 /* ============================================================
-   CAMADA DA FOTOGRAFIA DE FUNDO (PONTAS A PONTAS, 100dvh)
-   - Preenche 100% da largura e altura da viewport sem bordas ou paddings.
+   CAMADA DA FOTOGRAFIA DE FUNDO COM ALTURA EXCEDENTE PARA PARALLAX
+   - height: 125% e top: -12% criam o curso de movimento vertical.
+   - will-change: transform garante a aceleração via GPU.
    ============================================================ */
 .hero-bg-layer {
   position: absolute;
-  inset: 0;
+  top: -12%;
+  left: 0;
+  right: 0;
   width: 100%;
-  height: 100%;
+  height: 125%;
   z-index: 1;
   overflow: hidden;
   margin: 0;
   padding: 0;
   border-radius: 0;
+  will-change: transform;
 }
 
 /* ============================================================
@@ -760,7 +764,7 @@ img {
     transparent 0%,
     rgba(20, 14, 10, 0.18) 30%,
     rgba(20, 14, 10, 0.55) 65%,
-    rgba(20, 14, 10, 0.82) 100%
+    rgba(20, 14, 10, 0.82) 90%
   );
 }
 
@@ -799,12 +803,12 @@ img {
 /* TEXTO SUPERIOR (EYEBROW) */
 .hero-eyebrow {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--gold);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
 
 .hero-title-stack {
@@ -819,7 +823,7 @@ img {
 /* NOMES DO CASAL (MARCOS & GRAZI) - TIPOGRAFIA BRANCA ILUMINADA SOBRE FOTO */
 .hero-couple-name {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(2.8rem, 8.5vw, 4.2rem);
   line-height: 1.05;
   color: #ffffff;
@@ -842,7 +846,7 @@ img {
 /* DATA DO CASAMENTO */
 .hero-date-badge {
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.3em;
   color: rgba(255, 255, 255, 0.95);
@@ -1278,29 +1282,38 @@ img {
 }
 
 /* ============================================================
-   FASE 2 / ETAPA 2 — DOBRA EDITORIAL: A MENSAGEM / NOSSA HISTÓRIA
-   - Respiro de livro de arte em papel algodão: fundo var(--cream)
-   - Transição orgânica a partir do Hero sem linhas duras ou divisórias
+   FASE 2 / ETAPA 2 — DOBRA EDITORIAL: A MENSAGEM COM RELEVO SECO
+   - Escala real do floral inferior: width clamp(180px, 45vw, 240px)
+   - Coluna de texto calibrada: max-width min(90%, 540px)
    ============================================================ */
 .story-message-section {
   position: relative;
   width: 100%;
-  background: var(--cream);
-  padding: clamp(80px, 15vh, 140px) var(--page-pad);
+  background:
+    linear-gradient(180deg, rgba(250, 246, 240, 0.35) 0%, rgba(250, 246, 240, 0.65) 100%),
+    url('/assets/bg.png') center / cover no-repeat,
+    url('/assets/bg.jpg') center / cover no-repeat,
+    var(--cream);
+  filter: contrast(0.97) brightness(1.01);
+  padding: clamp(70px, 12vh, 120px) var(--page-pad);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .story-message-container {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  max-width: 580px;
+  max-width: min(90%, 540px);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(20px, 4vh, 32px);
+  gap: 20px;
 }
 
 /* EYEBROW / ANTETÍTULO */
@@ -1311,7 +1324,7 @@ img {
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--text-light);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 /* CORPO DO MANIFESTO */
@@ -1323,7 +1336,7 @@ img {
   color: var(--text);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .story-body p {
@@ -1332,13 +1345,13 @@ img {
 
 /* CITAÇÃO BÍBLICA DE FECHAMENTO */
 .story-quote {
-  margin-top: clamp(24px, 4vh, 40px);
+  margin-top: 24px;
   padding: 0;
   border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .quote-text {
@@ -1354,9 +1367,22 @@ img {
 .quote-cite {
   font-family: var(--font-sans);
   font-style: normal;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 400;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gold);
+}
+
+/* ILUSTRAÇÃO FLORES.PNG ABAIXO DE ISAÍAS 41:20 (ESCALA REAL DE RELEVO SECO) */
+.story-flores-img {
+  width: clamp(180px, 45vw, 240px);
+  max-width: 240px;
+  height: auto;
+  display: block;
+  margin: 28px auto 0;
+  object-fit: contain;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
 }
