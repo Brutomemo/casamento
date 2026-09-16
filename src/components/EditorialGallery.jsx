@@ -33,6 +33,46 @@ const STACK_CARDS_META = [
   },
   {
     roman: 'VII',
+    title: 'O ABRAÇO',
+    location: 'SÃO PAULO',
+  },
+  {
+    roman: 'VIII',
+    title: 'O SORRISO',
+    location: 'MEMÓRIAS DE AFETO',
+  },
+  {
+    roman: 'IX',
+    title: 'DESTEMIDO AFETO',
+    location: 'SANTOS · SP',
+  },
+  {
+    roman: 'X',
+    title: 'EM HARMONIA',
+    location: 'REGISTROS',
+  },
+  {
+    roman: 'XI',
+    title: 'LUMINESCÊNCIA',
+    location: 'DIÁRIO DE BORDO',
+  },
+  {
+    roman: 'XII',
+    title: 'CÚMPLICES',
+    location: 'ALMANAQUE',
+  },
+  {
+    roman: 'XIII',
+    title: 'O HORIZONTE',
+    location: 'SÃO PAULO',
+  },
+  {
+    roman: 'XIV',
+    title: 'A CELEBRAÇÃO',
+    location: 'AFETO & FÉ',
+  },
+  {
+    roman: 'XV',
     title: 'PARA SEMPRE',
     location: 'MARCOS & GRAZI',
   },
@@ -57,6 +97,14 @@ export default function EditorialGallery() {
           '/photos/6.jpeg',
           '/photos/7.jpeg',
           '/photos/8.jpeg',
+          '/photos/9.jpeg',
+          '/photos/10.jpeg',
+          '/photos/11.jpeg',
+          '/photos/12.jpeg',
+          '/photos/13.jpeg',
+          '/photos/14.jpeg',
+          '/photos/15.jpeg',
+          '/photos/16.jpeg',
         ]
 
   return (

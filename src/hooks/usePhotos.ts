@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const EXTS = ['jpg', 'jpeg', 'png', 'webp'] as const
-const PHOTO_COUNT = 8
+const PHOTO_COUNT = 16
 
 function probeImage(src: string): Promise<boolean> {
   return new Promise((resolve) => {
