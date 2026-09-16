@@ -40,16 +40,6 @@ export default function Footer() {
 
         {/* Assinatura Afetiva Editorial */}
         <p className="footer-signature">Com todo o nosso carinho</p>
-
-        {/* Vinheta Floral de Encerramento (Relevo Seco) */}
-        <img
-          src="/assets/floral-bottom.png"
-          alt=""
-          className="footer-floral-bottom"
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-        />
       </div>
     </footer>
   )

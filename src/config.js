@@ -7,7 +7,9 @@ export const wedding = {
   city: 'São Paulo, SP',
   mapsQuery: 'Rua João de Lacerda Soares, 31, Jardim das Acácias, São Paulo',
   // Substituir pelo WhatsApp real do Marcos (apenas dígitos, com DDI 55)
-  whatsapp: '5511999999999',
+  whatsapp: '5511984335153',
+  whatsappGrazi: '5511989128745',
+  whatsappMarcos: '5511984335153',
   rsvpDeadline: '01 · NOV · 2026',
   ceremonyTime: '16h00',
   receptionTime: '18h30',
