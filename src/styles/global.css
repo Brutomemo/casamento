@@ -16,7 +16,7 @@ body,
 html {
   background: var(--cream);
   color-scheme: light;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -26,7 +26,7 @@ body {
   font-weight: 300;
   color: var(--text);
   background: var(--cream);
-  overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior-x: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -46,7 +46,7 @@ img {
 .page {
   width: 100%;
   background: var(--cream);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .eyebrow {
@@ -1121,7 +1121,7 @@ img {
 .editorial-gallery {
   position: relative;
   background-color: var(--cream, #f5efeb);
-  padding: clamp(60px, 10vw, 120px) var(--page-pad, 20px);
+  padding: clamp(60px, 10vw, 100px) var(--page-pad, 20px) 0;
 }
 
 .editorial-paper-overlay {
@@ -1194,24 +1194,26 @@ img {
 .photo-stack-container {
   position: relative;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 60px;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
 .photo-stack-card {
   position: sticky;
-  top: clamp(70px, 12vh, 110px);
-  margin-bottom: 24vh;
+  top: clamp(75px, 12vh, 100px);
+  margin-bottom: clamp(50px, 10vh, 80px);
   width: 100%;
-  max-width: min(88vw, 760px);
-  margin-left: auto;
-  margin-right: auto;
   background: var(--cream, #f5efeb);
-  box-shadow: 0 16px 36px -12px rgba(44, 39, 36, 0.14);
-  transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease;
+  border: 1px solid rgba(184, 150, 106, 0.3);
+  box-shadow: 0 16px 36px -12px rgba(44, 39, 36, 0.16);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
   will-change: transform;
+}
+
+.photo-stack-card:last-child {
+  margin-bottom: 40px;
 }
 
 .photo-stack-passepartout {
