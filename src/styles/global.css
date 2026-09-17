@@ -1691,11 +1691,21 @@ img {
    - Cartões discretos em linha fina e tipografia serifada
    ============================================================ */
 .gifts-section {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
   position: relative;
+  z-index: 10;
+  width: 100%;
   background-color: var(--cream, #f5efeb);
   padding: clamp(60px, 9vw, 100px) var(--page-pad, 20px);
   overflow: hidden;
   text-align: center;
+}
+
+.gifts-content {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .gifts-paper-overlay {

@@ -33,34 +33,28 @@ export default function GiftsSection() {
     const container = containerRef.current
     if (!container) return
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) return
-
     const content = container.querySelector('.gifts-content')
     if (!content) return
 
-    const tween = gsap.fromTo(
-      content,
-      { opacity: 0, y: 24 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.1,
-        ease: 'power3.out',
+    // Garante que o elemento seja visível imediatamente:
+    content.style.opacity = '1'
+    content.style.transform = 'none'
+
+    const ctx = gsap.context(() => {
+      gsap.from(content, {
+        y: 20,
+        opacity: 0.8,
+        duration: 0.8,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: container,
-          start: 'top 85%',
+          start: 'top 95%',
           once: true,
         },
-      }
-    )
+      })
+    }, container)
 
-    requestAnimationFrame(() => ScrollTrigger.refresh())
-
-    return () => {
-      tween.scrollTrigger?.kill()
-      tween.kill()
-    }
+    return () => ctx.revert()
   }, [])
 
   return (

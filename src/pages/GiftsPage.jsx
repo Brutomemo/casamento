@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useImageScrollReveal } from '../hooks/useScrollReveal'
 import { wedding } from '../config'
 
 const GIFTS_CATALOG = [
