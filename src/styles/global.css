@@ -736,14 +736,13 @@ img {
   object-position: center 28%;
   aspect-ratio: auto;
   display: block;
-  opacity: 0.92;
-  transform: scale(0.80); /* Micro-zoom inicial recuando para 1.00 no scroll */
   transform-origin: center center;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   border-radius: 0;
   border: none;
   margin: 0;
   padding: 0;
+  animation: heroPhotoReveal 1400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (max-width: 768px) {
@@ -752,7 +751,6 @@ img {
     height: 100%;
     object-fit: cover;
     object-position: 42% 15%;
-    transform: none !important;
   }
 
   /* Se a altura da tela for muito longa em relação à largura (ex: 9:19 ou mais estreito), evite o corte excessivo */
@@ -827,12 +825,14 @@ img {
 /* TEXTO SUPERIOR (EYEBROW) */
 .hero-eyebrow {
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 300;
-  letter-spacing: 0.35em;
+  font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gold);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  color: var(--gold, #7b6244);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  animation: heroSubtitleReveal 1000ms cubic-bezier(0.2, 0.8, 0.2, 1) 700ms both;
+  will-change: transform, opacity, filter;
 }
 
 .hero-title-stack {
@@ -853,6 +853,8 @@ img {
   color: #ffffff;
   letter-spacing: -0.01em;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
+  animation: heroTextReveal 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) 300ms both;
+  will-change: transform, opacity, filter;
 }
 
 /* E DO CASAL (&) COM RESPIRO LATERAL */
@@ -865,6 +867,8 @@ img {
   line-height: 1;
   padding: 0 4px;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  animation: heroTextReveal 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) 400ms both;
+  will-change: transform, opacity, filter;
 }
 
 /* DATA DO CASAMENTO */
@@ -876,6 +880,8 @@ img {
   color: rgba(255, 255, 255, 0.95);
   margin-top: 4px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  animation: heroSubtitleReveal 1000ms cubic-bezier(0.2, 0.8, 0.2, 1) 700ms both;
+  will-change: transform, opacity, filter;
 }
 
 /* MICROINDICADOR DISCRETO DE SCROLL NO RODAPÉ (LINHA VERTICAL MINIMALISTA) */
@@ -912,6 +918,52 @@ img {
   }
 }
 
+/* ============================================================
+   CINEMATIC PHOTOGRAPHIC TEXT REVEAL KEYFRAMES
+   ============================================================ */
+
+/* 1. Camada de Fotografia e Fundo */
+@keyframes heroPhotoReveal {
+  0% {
+    filter: blur(4px) brightness(0.96);
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+  100% {
+    filter: blur(0px) brightness(1);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 2. Conjunto Tipográfico Principal (Marcos & Grazi) */
+@keyframes heroTextReveal {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(16px) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 3. Subtítulo / Data (29 · 11 · 2026 e Eyebrow) */
+@keyframes heroSubtitleReveal {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(10px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-layer {
     inset: 0 !important;
@@ -920,9 +972,16 @@ img {
 
   .hero-bg-photo,
   .hero-content-layer,
-  .hero-scroll-indicator {
+  .hero-scroll-indicator,
+  .hero-couple-name,
+  .hero-couple-amp,
+  .hero-date-badge,
+  .hero-eyebrow {
     will-change: auto !important;
     transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    opacity: 1 !important;
   }
 
   .scroll-indicator-line {
@@ -1287,25 +1346,30 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding-top: clamp(10px, 2vw, 14px);
   margin-top: 4px;
 }
 
 .photo-stack-roman {
-  font-family: var(--font-sans, system-ui, sans-serif);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold, #c5a059);
+  font-family: var(--font-serif);
+  font-size: clamp(0.78rem, 1.8vw, 0.88rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  color: #5c4d3c;
 }
 
 .photo-stack-location {
-  font-family: var(--font-sans, system-ui, sans-serif);
+  font-family: var(--font-sans);
   font-size: 0.65rem;
-  letter-spacing: 0.22em;
+  font-weight: 400;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-light, #7a6b60);
+  color: #9d856d;
+  white-space: nowrap;
 }
 
 /* Reduced Motion Accessibility */

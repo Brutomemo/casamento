@@ -7,7 +7,7 @@ export default function EnvelopeHero({ phase, onOpen }) {
   return (
     <section
       className={`envelope-hero${opening ? ' is-opening' : ''}${phase === 'bloom' ? ' is-bloom' : ''}`}
-      aria-label="Convite de Casamento de Marcos e Grazi"
+      aria-label="Convite de Casamento de Marcos e Graziela"
     >
       {/* Background textura rica com bg.jpg */}
       <div className="hero-bg-texture" aria-hidden="true" />

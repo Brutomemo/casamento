@@ -3,78 +3,78 @@ import { usePhotos } from '../hooks/usePhotos'
 const STACK_CARDS_META = [
   {
     roman: 'I',
-    title: 'O ENCONTRO',
-    location: 'SÃO PAULO · 2024',
+    title: 'Grandes coisas fez o Senhor por nós',
+    location: 'Salmos 126:3',
   },
   {
     roman: 'II',
-    title: 'O CAMINHO',
-    location: 'REGISTROS',
+    title: 'O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha.',
+    location: '1 Coríntios 13:4',
   },
   {
     roman: 'III',
-    title: 'A PROMESSA',
-    location: 'MEMÓRIA DE AFETO',
+    title: 'Acima de tudo, porém, revistam-se do amor, que é o elo perfeito.',
+    location: 'Colossenses 3:14',
   },
   {
     roman: 'IV',
-    title: 'O CUIDADO',
-    location: 'DIÁRIO DE BORDO',
+    title: 'Que a paz de Cristo seja o juiz em seu coração, visto que vocês foram chamados para viver em paz, como membros de um só corpo.',
+    location: 'Colossenses 3:15',
   },
   {
     roman: 'V',
-    title: 'CÚMPLICES NO TEMPO',
-    location: 'BROOKLIN · SP',
+    title: 'Mulheres, sujeite-se cada uma a seu marido, como convém a quem está no Senhor',
+    location: 'Colossenses 3:18',
   },
   {
     roman: 'VI',
-    title: 'A CERTEZA',
-    location: 'ALMANAQUE',
+    title: 'Maridos, ame cada um a sua mulher e não a tratem com amargura.',
+    location: 'Colossenses 3:19',
   },
   {
     roman: 'VII',
-    title: 'O ABRAÇO',
-    location: 'SÃO PAULO',
+    title: 'Habite ricamente em vocês a palavra de Cristo; ensinem e aconselhem-se uns aos outros com toda a sabedoria e cantem salmos, hinos e cânticos espirituais com gratidão a Deus em seu coração',
+    location: 'Colossenses 3:16',
   },
   {
     roman: 'VIII',
-    title: 'O SORRISO',
-    location: 'MEMÓRIAS DE AFETO',
+    title: 'Porque sou eu que conheço os planos que tenho para vocês", diz o Senhor, "planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro"',
+    location: 'Jeremias 29:11',
   },
   {
     roman: 'IX',
-    title: 'DESTEMIDO AFETO',
-    location: 'SANTOS · SP',
+    title: 'Tudo o que fizerem, seja em palavra seja em ação, façam-no em nome do Senhor Jesus, dando por meio dele graças a Deus Pai',
+    location: 'Colossenses 3:17',
   },
   {
     roman: 'X',
-    title: 'EM HARMONIA',
-    location: 'REGISTROS',
+    title: 'E, quando Deus concede riquezas e bens a alguém e o capacita a desfrutá-los, a aceitar a sua sorte e a ser feliz em seu trabalho, isso é um presente de Deus',
+    location: 'Eclesiastes 5:19',
   },
   {
     roman: 'XI',
-    title: 'LUMINESCÊNCIA',
-    location: 'DIÁRIO DE BORDO',
+    title: 'O seu falar seja sempre agradável e temperado com sal, para que saibam como responder a cada um.',
+    location: 'Colossenses 4:6',
   },
   {
     roman: 'XII',
-    title: 'CÚMPLICES',
-    location: 'ALMANAQUE',
+    title: 'Se eu subir aos céus, lá estás; se eu fizer a minha cama na sepultura, também lá estás. Se eu subir com as asas da alvorada e morar na extremidade do mar, mesmo ali a tua mão direita me guiará e me susterá.',
+    location: 'Salmos 139:8-10',
   },
   {
     roman: 'XIII',
-    title: 'O HORIZONTE',
-    location: 'SÃO PAULO',
+    title: 'Não fui eu que lhe ordenei? Seja forte e corajoso! Não se apavore, nem se desanime, pois o Senhor, o seu Deus, estará com você por onde você andar',
+    location: 'Josué 1:9',
   },
   {
     roman: 'XIV',
-    title: 'A CELEBRAÇÃO',
-    location: 'AFETO & FÉ',
+    title: 'Tudo o que fizerem, façam de todo o coração, como para o Senhor, e não para os homens,',
+    location: 'Colossenses 3:23',
   },
   {
     roman: 'XV',
-    title: 'PARA SEMPRE',
-    location: 'MARCOS & GRAZI',
+    title: 'Filhos, obedeçam a seus pais em tudo, pois isso agrada ao Senhor.',
+    location: 'Colossenses 3:20',
   },
 ]
 
@@ -140,7 +140,7 @@ export default function EditorialGallery() {
                   <div className={`photo-stack-img-wrapper ${idx === 0 ? 'is-landscape' : ''} ${meta.roman === 'XI' ? 'is-luminescencia' : ''} ${meta.roman === 'XIV' || meta.roman === 'XV' ? 'is-landscape-full' : ''}`}>
                     <img
                       src={src}
-                      alt={`Marcos e Grazi — Retrato ${photoNum}`}
+                      alt={`Marcos e Graziela — Retrato ${photoNum}`}
                       width="800"
                       height="1000"
                       loading={idx === 0 ? 'eager' : 'lazy'}

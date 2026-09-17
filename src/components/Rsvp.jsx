@@ -23,7 +23,7 @@ export default function Rsvp() {
   const phoneGrazi = wedding.whatsappGrazi || '5511989128745'
   const phoneMarcos = wedding.whatsappMarcos || '5511984335153'
 
-  const msgGrazi = 'Olá Grazi! Confirmo com alegria minha presença no casamento de vocês!'
+  const msgGrazi = 'Olá Graziela! Confirmo com alegria minha presença no casamento de vocês!'
   const msgMarcos = 'Olá Marcos! Confirmo com alegria minha presença no casamento de vocês!'
 
   const linkGrazi = `https://wa.me/${phoneGrazi}?text=${encodeURIComponent(msgGrazi)}`
@@ -438,9 +438,9 @@ export default function Rsvp() {
             href={linkGrazi}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Confirmar presença com a Grazi via WhatsApp"
+            aria-label="Confirmar presença com a Graziela via WhatsApp"
           >
-            FALAR COM A GRAZI ↗
+            FALAR COM A GRAZIELA ↗
           </a>
           <a
             className="rsvp-cta-ghost"

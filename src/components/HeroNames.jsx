@@ -14,7 +14,6 @@ export default function HeroNames() {
 
   useEffect(() => {
     const container = containerRef.current
-    const photo = photoRef.current
     const bg = bgRef.current
     const content = contentRef.current
     const indicator = indicatorRef.current
@@ -43,16 +42,6 @@ export default function HeroNames() {
         },
       },
     })
-
-    // Recuo de escala da foto (scale 1.05 -> 1.00)
-    if (photo) {
-      st.fromTo(
-        photo,
-        { scale: 1.05 },
-        { scale: 1.0, ease: 'none' },
-        0
-      )
-    }
 
     // Deslocamento vertical da camada da foto (translate3d / yPercent: 18%)
     st.fromTo(
@@ -94,7 +83,7 @@ export default function HeroNames() {
           ref={photoRef}
           className="hero-bg-photo"
           src="/photos/1.webp"
-          alt="Marcos e Grazi"
+          alt="Marcos e Graziela"
           width="1920"
           height="1080"
           decoding="async"

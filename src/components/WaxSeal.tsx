@@ -42,7 +42,7 @@ export default function WaxSeal({
       onClick={onClick}
       disabled={disabled}
       style={style}
-      aria-label="Tocar para abrir o convite de casamento de Marcos e Grazi"
+      aria-label="Tocar para abrir o convite de casamento de Marcos e Graziela"
     >
       {useImage ? (
         <img

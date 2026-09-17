@@ -96,6 +96,7 @@ const GIFTS_CATALOG = [
 ]
 
 export default function GiftsPage() {
+  useImageScrollReveal()
   const [selectedGift, setSelectedGift] = useState(null)
   const [copiedGrazi, setCopiedGrazi] = useState(false)
   const [copiedMarcos, setCopiedMarcos] = useState(false)
@@ -122,7 +123,7 @@ export default function GiftsPage() {
   }
 
   const getWhatsappGiftUrl = (gift) => {
-    const text = `Olá Marcos & Grazi! Escolhi o vale "${gift.title}" (${gift.price || gift.value}) para presentear vocês com muito carinho!`
+    const text = `Olá Marcos & Graziela! Escolhi o vale "${gift.title}" (${gift.price || gift.value}) para presentear vocês com muito carinho!`
     return `https://wa.me/${wedding.whatsapp}?text=${encodeURIComponent(text)}`
   }
 
@@ -267,7 +268,7 @@ export default function GiftsPage() {
             <div className="gift-modal-pix-grid">
               {/* Pix Noiva */}
               <div className="gift-modal-pix-box">
-                <span className="gift-modal-pix-tag">PIX DA NOIVA · GRAZI</span>
+                <span className="gift-modal-pix-tag">PIX DA NOIVA · GRAZIELA</span>
                 <span className="gift-modal-pix-key">{pixGrazi}</span>
                 <button
                   type="button"

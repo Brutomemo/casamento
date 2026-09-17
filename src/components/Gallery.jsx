@@ -32,11 +32,11 @@ export default function Gallery() {
     photos.length > 0
       ? photos.map((src, index) => ({
           src,
-          alt: `Marcos e Grazi — retrato ${index + 1}`,
+          alt: `Marcos e Graziela — retrato ${index + 1}`,
         }))
       : placeholders.map((placeholder, index) => ({
           src: null,
-          alt: `Marcos e Grazi — retrato ${index + 1}`,
+          alt: `Marcos e Graziela — retrato ${index + 1}`,
           placeholder,
         }))
 

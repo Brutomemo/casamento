@@ -1,6 +1,6 @@
 export const wedding = {
   groom: 'Marcos',
-  bride: 'Grazi',
+  bride: 'Graziela',
   datetime: '2026-11-29T16:00:00',
   venueName: 'Broklin',
   address: 'Rua João de Lacerda Soares, 31 — Jardim das Acácias, São Paulo, SP',

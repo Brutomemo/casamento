@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Selo de Cera Oficial */}
         <img
           src="/assets/selo.webp"
-          alt="Selo de Cera Marcos &amp; Grazi"
+          alt="Selo de Cera Marcos &amp; Graziela"
           width="85"
           height="85"
           className="footer-seal"
@@ -17,7 +17,7 @@ export default function Footer() {
         />
 
         {/* Nomes por Extenso */}
-        <h3 className="footer-names">Marcos &amp; Grazi</h3>
+        <h3 className="footer-names">Marcos &amp; Graziela</h3>
 
         {/* Imagem Editorial de Alianças */}
         <div className="footer-rings-wrapper">

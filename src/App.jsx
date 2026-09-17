@@ -12,9 +12,11 @@ import { AudioProvider } from './context/AudioContext'
 import AssetsPage from './pages/assets'
 import GiftsPage from './pages/GiftsPage'
 import { useLenis } from './hooks/useLenis'
+import { useImageScrollReveal } from './hooks/useScrollReveal'
 
 function Invitation() {
   useLenis()
+  useImageScrollReveal()
 
   return (
     <div className="page page-enter">

@@ -85,7 +85,7 @@ export default function GiftsSection() {
         <div className="gifts-seal-wrapper">
           <img
             src="/assets/selo.webp"
-            alt="Selo de Cera Marcos &amp; Grazi"
+            alt="Selo de Cera Marcos &amp; Graziela"
             width="100"
             height="100"
             className="gifts-seal-img"
@@ -111,9 +111,9 @@ export default function GiftsSection() {
 
         {/* 3. Colunas Gêmeas para Duas Chaves Pix (Noiva & Noivo) */}
         <div className="gifts-grid-pix">
-          {/* Pix Noiva (Grazi) */}
+          {/* Pix Noiva (Graziela) */}
           <div className="gifts-card-editorial">
-            <span className="gifts-card-tag">PIX DA NOIVA · GRAZI</span>
+            <span className="gifts-card-tag">PIX DA NOIVA · GRAZIELA</span>
             <div className="gifts-key-display">{PIX_NOIVA}</div>
             <button
               type="button"
