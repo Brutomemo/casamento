@@ -152,7 +152,6 @@ export default function Rsvp() {
 
       if (isSupabaseConfigured()) {
         const { error } = await supabase
-          .schema('casamento')
           .from('rsvp')
           .insert([payload])
           .select()

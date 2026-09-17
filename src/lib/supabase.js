@@ -12,11 +12,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient(
   supabaseUrl || 'https://placeholder.supabase.co',
   supabaseAnonKey || 'placeholder',
-  {
-    db: {
-      schema: 'casamento',
-    },
-  },
 )
 
 export const isSupabaseConfigured = () => {
