@@ -1409,10 +1409,17 @@ img {
     transform-style: flat !important;
     -webkit-transform-style: flat !important;
     will-change: auto !important;
+    -webkit-transform: none !important;
+    transform: none !important;
   }
 
   .photo-stack-card {
     transition: opacity 0.3s ease, transform 0.3s ease !important;
+    margin-bottom: clamp(40px, 8vh, 60px);
+  }
+
+  .photo-stack-card:last-child {
+    margin-bottom: 30px !important;
   }
 
   .photo-stack-img {

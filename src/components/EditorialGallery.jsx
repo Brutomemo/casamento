@@ -127,23 +127,28 @@ export default function EditorialGallery() {
         {/* Trilho de Empilhamento Sticky Card Stack */}
         <div className="photo-stack-container">
           {photosToDisplay.map((src, idx) => {
-            const meta = STACK_CARDS_META[idx % STACK_CARDS_META.length]
+            const meta = STACK_CARDS_META[idx % STACK_CARDS_META.length] || { roman: '', title: '', location: '' }
             const photoNum = idx + 2
+            const isEager = idx < 2 || idx >= photosToDisplay.length - 2
+            const isLandscapeOrFull = idx === 0 || meta.roman === 'XIV' || meta.roman === 'XV'
 
             return (
               <article
                 key={src}
                 className="photo-stack-card"
-                style={{ zIndex: idx + 1 }}
+                style={{
+                  zIndex: idx + 1,
+                  isolation: 'isolate',
+                }}
               >
                 <div className="photo-stack-passepartout">
                   <div className={`photo-stack-img-wrapper ${idx === 0 ? 'is-landscape' : ''} ${meta.roman === 'XI' ? 'is-luminescencia' : ''} ${meta.roman === 'XIV' || meta.roman === 'XV' ? 'is-landscape-full' : ''}`}>
                     <img
                       src={src}
                       alt={`Marcos e Graziela — Retrato ${photoNum}`}
-                      width="800"
-                      height="1000"
-                      loading={idx === 0 ? 'eager' : 'lazy'}
+                      width={isLandscapeOrFull ? '1600' : '800'}
+                      height={isLandscapeOrFull ? '1000' : '1000'}
+                      loading={isEager ? 'eager' : 'lazy'}
                       decoding="async"
                       className="photo-stack-img"
                     />
