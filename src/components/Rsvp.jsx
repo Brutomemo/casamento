@@ -329,6 +329,9 @@ export default function Rsvp() {
             {/* Quantidades e Campos Dinâmicos de Acompanhantes (Se confirmou presença) */}
             {confirmado && (
               <>
+                <p className="rsvp-guideline-note">
+                  O convite é pessoal e reservado ao titular, com a possibilidade de até 1 acompanhante adulto e até 2 crianças. Por gentileza, informe os nomes completos para identificação na portaria.
+                </p>
                 <div className="rsvp-field-row">
                   <div className="rsvp-field">
                     <label htmlFor="rsvp-adultos" className="rsvp-label">
@@ -340,9 +343,8 @@ export default function Rsvp() {
                       value={qtdAdultos}
                       onChange={(e) => handleQtdAdultosChange(e.target.value)}
                     >
-                      <option value={1}>1 Adulto (apenas o titular)</option>
-                      <option value={2}>2 Adultos</option>
-                      <option value={3}>3 Adultos</option>
+                      <option value={1}>Apenas eu</option>
+                      <option value={2}>+1 acompanhante adulto</option>
                     </select>
                   </div>
 
@@ -356,10 +358,9 @@ export default function Rsvp() {
                       value={qtdCriancas}
                       onChange={(e) => handleQtdCriancasChange(e.target.value)}
                     >
-                      <option value={0}>0 Crianças</option>
-                      <option value={1}>1 Criança</option>
-                      <option value={2}>2 Crianças</option>
-                      <option value={3}>3 Crianças</option>
+                      <option value={0}>Nenhuma</option>
+                      <option value={1}>1 criança</option>
+                      <option value={2}>2 crianças</option>
                     </select>
                   </div>
                 </div>
