@@ -1379,7 +1379,8 @@ img {
   max-width: 680px;
   margin: 0 auto;
   padding: 0 16px;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior: contain;
 }
 
 .photo-stack-container,
@@ -1394,6 +1395,29 @@ img {
   -webkit-perspective: 1000px;
   perspective: 1000px;
   will-change: transform;
+}
+
+/* Mobile GPU Decompression & 2D Fallback for Photo Stack */
+@media (max-width: 768px) {
+  .photo-stack-container,
+  .photo-stack-card,
+  .photo-stack-passepartout,
+  .photo-stack-img-wrapper,
+  .photo-stack-img {
+    -webkit-perspective: none !important;
+    perspective: none !important;
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    will-change: auto !important;
+  }
+
+  .photo-stack-card {
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+  }
+
+  .photo-stack-img {
+    filter: none !important;
+  }
 }
 
 .photo-stack-card {
