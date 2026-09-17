@@ -8,6 +8,7 @@ export default function Rsvp() {
   const ref = useScrollReveal()
 
   const [nomeCompleto, setNomeCompleto] = useState('')
+  const [rg, setRg] = useState('')
   const [telefone, setTelefone] = useState('')
   const [confirmado, setConfirmado] = useState(true)
   const [qtdAdultos, setQtdAdultos] = useState(1)
@@ -142,6 +143,7 @@ export default function Rsvp() {
 
       const payload = {
         nome_completo: nomeCompleto.trim(),
+        rg: rg.trim(),
         telefone: telefone.trim(),
         confirmado,
         qtd_adultos: confirmado ? Number(qtdAdultos) : 0,
@@ -183,6 +185,7 @@ export default function Rsvp() {
   const handleReset = () => {
     setSubmitted(false)
     setNomeCompleto('')
+    setRg('')
     setTelefone('')
     setConfirmado(true)
     setQtdAdultos(1)
@@ -303,6 +306,23 @@ export default function Rsvp() {
                 placeholder="(11) 99999-9999"
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
+              />
+            </div>
+
+            {/* RG */}
+            <div className="rsvp-field">
+              <label htmlFor="rsvp-rg" className="rsvp-label">
+                RG (NECESSÁRIO PARA CONTROLE DE PORTARIA) *
+              </label>
+              <input
+                id="rsvp-rg"
+                type="text"
+                name="rg"
+                value={rg}
+                onChange={(e) => setRg(e.target.value)}
+                placeholder="Digite seu RG"
+                required
+                className="rsvp-input"
               />
             </div>
 

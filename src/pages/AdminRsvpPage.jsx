@@ -85,11 +85,13 @@ export default function AdminRsvpPage() {
       if (searchTerm.trim() !== '') {
         const query = searchTerm.toLowerCase().trim()
         const nome = (item.nome_completo || '').toLowerCase()
+        const rg = (item.rg || '').toLowerCase()
         const acomp = (item.nomes_acompanhantes || '').toLowerCase()
         const fone = (item.telefone || '').toLowerCase()
         const msg = (item.mensagem || '').toLowerCase()
         return (
           nome.includes(query) ||
+          rg.includes(query) ||
           acomp.includes(query) ||
           fone.includes(query) ||
           msg.includes(query)
@@ -144,6 +146,7 @@ export default function AdminRsvpPage() {
     const headers = [
       'Data e Hora',
       'Nome Completo',
+      'RG',
       'Telefone',
       'Status',
       'Qtd Adultos',
@@ -158,6 +161,7 @@ export default function AdminRsvpPage() {
         : ''
       const statusStr = item.confirmado ? 'Confirmado' : 'Recusado'
       const nome = `"${(item.nome_completo || '').replace(/"/g, '""')}"`
+      const rg = `"${(item.rg || '').replace(/"/g, '""')}"`
       const fone = `"${(item.telefone || '').replace(/"/g, '""')}"`
       const acomp = `"${(item.nomes_acompanhantes || '').replace(/"/g, '""')}"`
       const msg = `"${(item.mensagem || '').replace(/"/g, '""')}"`
@@ -165,6 +169,7 @@ export default function AdminRsvpPage() {
       return [
         `"${dataStr}"`,
         nome,
+        rg,
         fone,
         `"${statusStr}"`,
         item.confirmado ? item.qtd_adultos || 1 : 0,
@@ -375,6 +380,7 @@ export default function AdminRsvpPage() {
                 <tr>
                   <th>Data/Hora</th>
                   <th>Titular</th>
+                  <th>RG</th>
                   <th>WhatsApp / Contato</th>
                   <th>Status</th>
                   <th>Adultos</th>
@@ -401,6 +407,9 @@ export default function AdminRsvpPage() {
                       <td className="cell-date">{dateStr}</td>
                       <td className="cell-name">
                         <strong>{row.nome_completo}</strong>
+                      </td>
+                      <td className="cell-rg">
+                        {row.rg || '—'}
                       </td>
                       <td className="cell-phone">
                         {row.telefone ? (
