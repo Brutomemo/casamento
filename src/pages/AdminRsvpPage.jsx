@@ -147,6 +147,7 @@ export default function AdminRsvpPage() {
       'Data e Hora',
       'Nome Completo',
       'RG',
+      'RG Acompanhante',
       'Telefone',
       'Status',
       'Qtd Adultos',
@@ -162,6 +163,7 @@ export default function AdminRsvpPage() {
       const statusStr = item.confirmado ? 'Confirmado' : 'Recusado'
       const nome = `"${(item.nome_completo || '').replace(/"/g, '""')}"`
       const rg = `"${(item.rg || '').replace(/"/g, '""')}"`
+      const rgAcomp = `"${(item.rg_acompanhante || '').replace(/"/g, '""')}"`
       const fone = `"${(item.telefone || '').replace(/"/g, '""')}"`
       const acomp = `"${(item.nomes_acompanhantes || '').replace(/"/g, '""')}"`
       const msg = `"${(item.mensagem || '').replace(/"/g, '""')}"`
@@ -170,6 +172,7 @@ export default function AdminRsvpPage() {
         `"${dataStr}"`,
         nome,
         rg,
+        rgAcomp,
         fone,
         `"${statusStr}"`,
         item.confirmado ? item.qtd_adultos || 1 : 0,
@@ -381,6 +384,7 @@ export default function AdminRsvpPage() {
                   <th>Data/Hora</th>
                   <th>Titular</th>
                   <th>RG</th>
+                  <th>RG Acomp.</th>
                   <th>WhatsApp / Contato</th>
                   <th>Status</th>
                   <th>Adultos</th>
@@ -410,6 +414,9 @@ export default function AdminRsvpPage() {
                       </td>
                       <td className="cell-rg">
                         {row.rg || '—'}
+                      </td>
+                      <td className="cell-rg-acomp">
+                        {row.rg_acompanhante || '—'}
                       </td>
                       <td className="cell-phone">
                         {row.telefone ? (

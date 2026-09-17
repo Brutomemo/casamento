@@ -9,6 +9,7 @@ export default function Rsvp() {
 
   const [nomeCompleto, setNomeCompleto] = useState('')
   const [rg, setRg] = useState('')
+  const [rgAcompanhante, setRgAcompanhante] = useState('')
   const [telefone, setTelefone] = useState('')
   const [confirmado, setConfirmado] = useState(true)
   const [qtdAdultos, setQtdAdultos] = useState(1)
@@ -144,6 +145,7 @@ export default function Rsvp() {
       const payload = {
         nome_completo: nomeCompleto.trim(),
         rg: rg.trim(),
+        rg_acompanhante: rgAcompanhante.trim(),
         telefone: telefone.trim(),
         confirmado,
         qtd_adultos: confirmado ? Number(qtdAdultos) : 0,
@@ -186,6 +188,7 @@ export default function Rsvp() {
     setSubmitted(false)
     setNomeCompleto('')
     setRg('')
+    setRgAcompanhante('')
     setTelefone('')
     setConfirmado(true)
     setQtdAdultos(1)
@@ -367,24 +370,42 @@ export default function Rsvp() {
 
                 {/* Renderização Dinâmica de Adultos Extras */}
                 {nomesAdultosExtras.map((nome, index) => (
-                  <div className="rsvp-field" key={`adulto-extra-${index}`}>
-                    <label
-                      htmlFor={`rsvp-adulto-extra-${index}`}
-                      className="rsvp-label"
-                    >
-                      NOME COMPLETO DO {index + 2}º ADULTO *
-                    </label>
-                    <input
-                      id={`rsvp-adulto-extra-${index}`}
-                      type="text"
-                      className="rsvp-input"
-                      placeholder="Nome e sobrenome para a lista da portaria"
-                      value={nome}
-                      onChange={(e) =>
-                        handleAdultoExtraChange(index, e.target.value)
-                      }
-                      required
-                    />
+                  <div key={`adulto-extra-${index}`}>
+                    <div className="rsvp-field">
+                      <label
+                        htmlFor={`rsvp-adulto-extra-${index}`}
+                        className="rsvp-label"
+                      >
+                        NOME COMPLETO DO {index + 2}º ADULTO *
+                      </label>
+                      <input
+                        id={`rsvp-adulto-extra-${index}`}
+                        type="text"
+                        className="rsvp-input"
+                        placeholder="Nome e sobrenome para a lista da portaria"
+                        value={nome}
+                        onChange={(e) =>
+                          handleAdultoExtraChange(index, e.target.value)
+                        }
+                        required
+                      />
+                    </div>
+                    {/* RG do Acompanhante */}
+                    <div className="rsvp-field">
+                      <label htmlFor={`rg_acompanhante_${index}`} className="rsvp-label">
+                        RG DO ACOMPANHANTE ADULTO *
+                      </label>
+                      <input
+                        id={`rg_acompanhante_${index}`}
+                        type="text"
+                        name="rg_acompanhante"
+                        value={rgAcompanhante}
+                        onChange={(e) => setRgAcompanhante(e.target.value)}
+                        placeholder="Digite o RG do acompanhante"
+                        required
+                        className="rsvp-input"
+                      />
+                    </div>
                   </div>
                 ))}
 
