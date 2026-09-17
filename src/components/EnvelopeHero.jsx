@@ -94,10 +94,11 @@ export default function EnvelopeHero({ onOpen, onTriggerLightCore, onTriggerWhit
           <p className="opening-eyebrow">Convite de Casamento</p>
           <h1 className="opening-couple-names">
             <span>{wedding.groom}</span>
-            <span className="opening-amp">&</span>
+            <span className="opening-amp">&amp;</span>
             <span>{wedding.bride}</span>
           </h1>
           <p className="opening-date">29 · 11 · 2026</p>
+          <p className="hero-seal-hint">toque no selo para abrir</p>
         </header>
 
         <div className="invite-card">
@@ -130,11 +131,6 @@ export default function EnvelopeHero({ onOpen, onTriggerLightCore, onTriggerWhit
             {/* Lacre de cera (WaxSeal) posicionado sobre o bico do envelope */}
             <WaxSeal onClick={handleSealClick} disabled={isVideoActive} />
           </div>
-        </div>
-
-        {/* Indicação discreta de interação */}
-        <div className="envelope-hint">
-          <span>toque no selo para abrir</span>
         </div>
       </div>
 
