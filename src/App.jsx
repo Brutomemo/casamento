@@ -35,6 +35,7 @@ function Cover() {
   const [phase, setPhase] = useState('cover')
   const [lightCoreActive, setLightCoreActive] = useState(false)
   const [whiteoutActive, setWhiteoutActive] = useState(false)
+  const [envelopeDismissed, setEnvelopeDismissed] = useState(false)
 
   useEffect(() => {
     const locked = phase !== 'invite'
@@ -60,12 +61,19 @@ function Cover() {
     setTimeout(() => {
       setWhiteoutActive(false)
       setLightCoreActive(false)
+      setTimeout(() => {
+        setEnvelopeDismissed(true)
+      }, 800)
     }, 250)
   }
 
   return (
     <>
-      {phase !== 'invite' ? (
+      {/* 1. Página principal pré-montada por baixo desde o início para evitar repaint flash no mobile */}
+      <Invitation />
+
+      {/* 2. Camada de Envelope sobreposta (z-index: 50) */}
+      {!envelopeDismissed ? (
         <EnvelopeHero
           onOpen={handleOpen}
           onTriggerLightCore={handleTriggerLightCore}
@@ -78,8 +86,6 @@ function Cover() {
 
       {/* Camada 2: Lavagem final total em marfim suave (#FCFBF7) */}
       <div className={`cinematic-whiteout${whiteoutActive ? ' active' : ''}`} aria-hidden="true" />
-
-      {phase === 'invite' ? <Invitation /> : null}
     </>
   )
 }

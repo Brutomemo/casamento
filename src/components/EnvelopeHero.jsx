@@ -59,13 +59,16 @@ export default function EnvelopeHero({ onOpen, onTriggerLightCore, onTriggerWhit
     }
   }
 
+  const [isDismissed, setIsDismissed] = useState(false)
+
   const handleVideoEnded = () => {
+    setIsDismissed(true)
     onOpen()
   }
 
   return (
     <section
-      className={`envelope-hero${isOpening ? ' is-opening' : ''}`}
+      className={`envelope-hero${isOpening ? ' is-opening' : ''}${isDismissed ? ' is-dismissed' : ''}`}
       aria-label="Convite de Casamento de Marcos e Graziela"
     >
       {/* Camada de Vídeo de Abertura do Envelope */}

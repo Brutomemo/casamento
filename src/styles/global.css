@@ -83,7 +83,7 @@ img {
 .envelope-hero {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 50;
   width: 100%;
   height: 100vh;
   height: 100dvh;
@@ -94,6 +94,34 @@ img {
   background: #f5f0e8;
   overscroll-behavior: none;
   touch-action: manipulation;
+  transition: opacity 0.8s ease;
+}
+
+.envelope-hero.is-dismissed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Força composição isolada na GPU para evitar flickering no mobile */
+.cinematic-light-core,
+.cinematic-whiteout,
+.hero-video-wrapper,
+.envelope-video-element,
+.cinematic-hero,
+.hero-bg-layer,
+.hero-bg-photo {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  transform: translateZ(0);
+}
+
+/* Desative filtros pesados de blur no mobile se causarem GPU drop */
+@media (max-width: 768px) {
+  .cinematic-light-core {
+    filter: blur(14px); /* Reduz carga de shader na GPU mobile */
+  }
 }
 
 .hero-video-wrapper {
@@ -122,11 +150,11 @@ img {
   z-index: 20;
   opacity: 1 !important;
   display: block !important;
-  transition: filter 1.4s ease-out;
+  transition: filter 1.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .envelope-video-element.overexpose {
-  filter: brightness(2.6) contrast(0.85) blur(4px);
+  filter: brightness(2.8) contrast(0.82) blur(3px);
 }
 
 .hero-static-content {
@@ -146,43 +174,46 @@ img {
   pointer-events: none;
 }
 
-/* Camada 1: Glow óptico que queima o centro e expande */
+/* Camada de luz que nasce exatamente no centro geométrico e expande */
 .cinematic-light-core {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 100vmax;
-  height: 100vmax;
-  transform: translate(-50%, -50%) scale(0.15);
+  width: 140vmax;
+  height: 140vmax;
+  transform: translate(-50%, -50%) scale(0.05);
   background: radial-gradient(
-    circle,
+    circle at center,
     rgba(255, 255, 255, 1) 0%,
-    rgba(255, 248, 230, 0.95) 30%,
-    rgba(255, 242, 215, 0.6) 60%,
-    transparent 80%
+    rgba(255, 250, 238, 0.98) 25%,
+    rgba(255, 243, 215, 0.7) 48%,
+    rgba(255, 235, 195, 0.25) 70%,
+    transparent 85%
   );
   mix-blend-mode: screen;
   pointer-events: none;
   opacity: 0;
-  filter: blur(35px);
-  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: blur(28px);
+  /* Curva suave de aceleração inicial e desaceleração na abertura total */
+  transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 70;
+  will-change: transform, opacity;
 }
 
 .cinematic-light-core.active {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(2.8);
+  transform: translate(-50%, -50%) scale(2.6);
 }
 
-/* Camada 2: Lavagem final total em marfim suave (#FCFBF7) */
+/* Lavagem suave no tom marfim editorial para corte limpo */
 .cinematic-whiteout {
   position: fixed;
   inset: 0;
   background: #FCFBF7;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 75;
 }
 
