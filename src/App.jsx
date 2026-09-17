@@ -33,6 +33,8 @@ function Invitation() {
 
 function Cover() {
   const [phase, setPhase] = useState('cover')
+  const [lightCoreActive, setLightCoreActive] = useState(false)
+  const [whiteoutActive, setWhiteoutActive] = useState(false)
 
   useEffect(() => {
     const locked = phase !== 'invite'
@@ -45,35 +47,37 @@ function Cover() {
     }
   }, [phase])
 
-  useEffect(() => {
-    if (phase !== 'opening') return undefined
-    const id = window.setTimeout(() => setPhase('bloom'), 950)
-    return () => window.clearTimeout(id)
-  }, [phase])
+  const handleTriggerLightCore = () => {
+    setLightCoreActive(true)
+  }
 
-  useEffect(() => {
-    if (phase !== 'bloom') return undefined
-    const id = window.setTimeout(() => setPhase('invite'), 1150)
-    return () => window.clearTimeout(id)
-  }, [phase])
+  const handleTriggerWhiteout = () => {
+    setWhiteoutActive(true)
+  }
 
-  function openEnvelope() {
-    if (phase !== 'cover') return
-    setPhase('opening')
+  const handleOpen = () => {
+    setPhase('invite')
+    setTimeout(() => {
+      setWhiteoutActive(false)
+      setLightCoreActive(false)
+    }, 250)
   }
 
   return (
     <>
       {phase !== 'invite' ? (
-        <EnvelopeHero phase={phase} onOpen={openEnvelope} />
-      ) : null}
-
-      {phase === 'bloom' || phase === 'invite' ? (
-        <div
-          className={`invite-bloom${phase === 'bloom' ? ' is-on' : ''}${phase === 'invite' ? ' is-out' : ''}`}
-          aria-hidden="true"
+        <EnvelopeHero
+          onOpen={handleOpen}
+          onTriggerLightCore={handleTriggerLightCore}
+          onTriggerWhiteout={handleTriggerWhiteout}
         />
       ) : null}
+
+      {/* Camada 1: Glow óptico que queima o centro e expande */}
+      <div className={`cinematic-light-core${lightCoreActive ? ' active' : ''}`} aria-hidden="true" />
+
+      {/* Camada 2: Lavagem final total em marfim suave (#FCFBF7) */}
+      <div className={`cinematic-whiteout${whiteoutActive ? ' active' : ''}`} aria-hidden="true" />
 
       {phase === 'invite' ? <Invitation /> : null}
     </>
