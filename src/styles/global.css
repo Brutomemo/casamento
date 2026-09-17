@@ -1548,6 +1548,16 @@ img {
   }
 }
 
+@media (max-width: 768px) {
+  .photo-stack-img-wrapper.is-landscape-full {
+    width: 100% !important;
+    height: 100% !important;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    contain: layout paint size;
+  }
+}
+
 /* Aplicação direta em todas as imagens da galeria e álbum */
 .photo-stack-img,
 .photo-stack-container img,

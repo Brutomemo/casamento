@@ -1,21 +1,16 @@
 export const wedding = {
   groom: 'Marcos',
-  bride: 'Graziela',
+  bride: 'Grazi',
   datetime: '2026-11-29T16:00:00',
-  venueName: 'Broklin',
+  venueName: 'Brooklin',
   address: 'Rua João de Lacerda Soares, 31 — Jardim das Acácias, São Paulo, SP',
   city: 'São Paulo, SP',
   mapsQuery: 'Rua João de Lacerda Soares, 31, Jardim das Acácias, São Paulo',
   // Substituir pelo WhatsApp real do Marcos (apenas dígitos, com DDI 55)
-  whatsapp: '5511984335153',
-  whatsappGrazi: '5511989128745',
-  whatsappMarcos: '5511984335153',
+  whatsapp: '5511999999999',
   rsvpDeadline: '01 · NOV · 2026',
   ceremonyTime: '16h00',
   receptionTime: '18h30',
-  pixGrazi: '11989128745',
-  pixMarcos: '11984335153',
-  registryUrl: 'https://site.iasei.com.br/marcosegrazi',
 }
 
 export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(wedding.mapsQuery)}`

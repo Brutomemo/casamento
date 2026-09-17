@@ -151,7 +151,7 @@ export default function EditorialGallery() {
                       width={isLandscapeOrFull ? '1600' : '800'}
                       height={isLandscapeOrFull ? '1000' : '1000'}
                       loading={isEager ? 'eager' : 'lazy'}
-                      decoding="async"
+                      decoding={isEager ? 'sync' : 'async'}
                       className="photo-stack-img"
                       style={{
                         filter: 'sepia(0.18) contrast(1.08) brightness(0.95) saturate(0.85)',
