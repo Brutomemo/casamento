@@ -1380,7 +1380,9 @@ img {
   margin: 0 auto;
   padding: 0 16px;
   touch-action: pan-y pinch-zoom;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .photo-stack-container,
@@ -1401,7 +1403,9 @@ img {
 @media (max-width: 768px) {
   .photo-stack-container,
   .photo-stack-card,
+  .photo-stack-card *,
   .photo-stack-passepartout,
+  .photo-stack-passepartout *,
   .photo-stack-img-wrapper,
   .photo-stack-img {
     -webkit-perspective: none !important;
@@ -1411,19 +1415,19 @@ img {
     will-change: auto !important;
     -webkit-transform: none !important;
     transform: none !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
   }
 
   .photo-stack-card {
     transition: opacity 0.3s ease, transform 0.3s ease !important;
     margin-bottom: clamp(40px, 8vh, 60px);
+    box-shadow: 0 4px 12px rgba(44, 39, 36, 0.08) !important;
+    isolation: isolate !important;
   }
 
   .photo-stack-card:last-child {
     margin-bottom: 30px !important;
-  }
-
-  .photo-stack-img {
-    filter: none !important;
   }
 }
 
@@ -1438,6 +1442,10 @@ img {
   border-radius: 2px;
   transition: transform 0.2s ease, opacity 0.2s ease;
   touch-action: pan-y;
+  isolation: isolate;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .photo-stack-card:last-child {
@@ -1456,16 +1464,52 @@ img {
   align-items: center;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   overflow: hidden;
+  isolation: isolate;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.photo-stack-img-wrapper {
-  position: relative;
+.photo-stack-img-wrapper,
+.gallery-thumb {
+  position: relative !important;
+  isolation: isolate;
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 1px;
   background: #f0e8e0;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+/* Película fotográfica editorial - Mix Blend Mode Color */
+.photo-stack-img-wrapper::after,
+.gallery-thumb::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 240, 220, 0.22) 0%,
+    rgba(240, 220, 190, 0.15) 50%,
+    rgba(120, 95, 75, 0.28) 100%
+  ) !important;
+  mix-blend-mode: color !important;
+  pointer-events: none !important;
+  z-index: 5 !important;
+  border-radius: inherit;
+}
+
+/* Segunda camada sutil (Veludo / Matte Finish) - Mix Blend Mode Screen */
+.photo-stack-img-wrapper::before,
+.gallery-thumb::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(250, 246, 240, 0.08) !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  z-index: 6 !important;
+  border-radius: inherit;
 }
 
 .photo-stack-img-wrapper.is-landscape {
@@ -1504,25 +1548,55 @@ img {
   }
 }
 
-.photo-stack-img {
+/* Aplicação direta em todas as imagens da galeria e álbum */
+.photo-stack-img,
+.photo-stack-container img,
+.editorial-gallery img,
+.gallery img,
+.gallery-thumb img,
+.editorial-card-photo,
+.polaroid-card img,
+.polaroid-frame img,
+.album-card img,
+.photo-card img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  filter: contrast(0.96) brightness(1.02) saturate(0.88) sepia(0.08);
-  transition: transform 0.6s ease;
+  filter: sepia(0.12) contrast(1.04) brightness(0.96) saturate(0.88) !important;
+  transition: filter 0.4s ease, transform 0.4s ease;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 @media (hover: hover) {
-  .photo-stack-img {
-    transition: transform 0.6s ease, filter 0.4s ease;
-  }
-
   .photo-stack-card:hover .photo-stack-img,
-  .photo-stack-img:hover {
-    filter: contrast(1) brightness(1) saturate(1) sepia(0);
+  .photo-stack-img:hover,
+  .editorial-gallery img:hover,
+  .gallery-thumb img:hover,
+  .editorial-card-photo:hover,
+  .album-card:hover img,
+  .polaroid-frame:hover img {
+    filter: sepia(0.04) contrast(1.05) brightness(1) saturate(0.98) !important;
   }
+}
+
+/* Efeito Papel Fotográfico (Matte Finish) - Véu de luz editorial quente */
+.polaroid-frame::after,
+.photo-stack-passepartout::after,
+.album-card-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(255, 250, 240, 0.08) 0%,
+    rgba(40, 30, 20, 0.04) 100%
+  );
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 2;
 }
 
 .photo-stack-caption {
@@ -3219,11 +3293,38 @@ img {
   }
 
   .hero-bg-texture,
-  .hero-texture-bg,
-  .editorial-gallery,
-  .gifts-section,
-  .story-message-section,
-  .celebration-section {
+  .hero-texture-bg {
     filter: none !important;
+  }
+}
+
+/* ============================================================
+   TRATAMENTO FOTOGRÁFICO EDITORIAL UNIFICADO (Vogue Weddings / Kinfolk)
+   ============================================================ */
+.editorial-gallery img,
+.photo-stack-container img,
+.photo-stack-img,
+.gallery img,
+.gallery-thumb img,
+.editorial-card-photo,
+.polaroid-card img,
+.polaroid-frame img,
+.album-container img,
+.album-card img,
+.photo-card img {
+  filter: sepia(0.12) contrast(1.04) brightness(0.96) saturate(0.88) !important;
+  transition: filter 0.4s ease, transform 0.4s ease !important;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+@media (hover: hover) {
+  .photo-stack-card:hover .photo-stack-img,
+  .photo-stack-img:hover,
+  .editorial-gallery img:hover,
+  .gallery-thumb img:hover,
+  .editorial-card-photo:hover,
+  .album-card:hover img,
+  .polaroid-frame:hover img {
+    filter: sepia(0.04) contrast(1.05) brightness(1) saturate(0.98) !important;
   }
 }

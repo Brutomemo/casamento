@@ -132,12 +132,14 @@ export default function EditorialGallery() {
             const isEager = idx < 2 || idx >= photosToDisplay.length - 2
             const isLandscapeOrFull = idx === 0 || meta.roman === 'XIV' || meta.roman === 'XV'
 
+            const calculatedZIndex = (idx + 1) * 10
+
             return (
               <article
                 key={src}
                 className="photo-stack-card"
                 style={{
-                  zIndex: idx + 1,
+                  zIndex: calculatedZIndex,
                   isolation: 'isolate',
                 }}
               >
@@ -151,6 +153,9 @@ export default function EditorialGallery() {
                       loading={isEager ? 'eager' : 'lazy'}
                       decoding="async"
                       className="photo-stack-img"
+                      style={{
+                        filter: 'sepia(0.18) contrast(1.08) brightness(0.95) saturate(0.85)',
+                      }}
                     />
                   </div>
                   <figcaption className="photo-stack-caption">

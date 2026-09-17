@@ -46,7 +46,15 @@ export default function Gallery() {
         {items.map((item, index) => (
           <div className="gallery-thumb" key={item.alt}>
             {item.src ? (
-              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                decoding="async"
+                style={{
+                  filter: 'sepia(0.18) contrast(1.08) brightness(0.95) saturate(0.85)',
+                }}
+              />
             ) : (
               <PlaceholderThumb {...placeholders[index]} />
             )}
