@@ -11,6 +11,7 @@ import AudioControl from './components/AudioControl'
 import { AudioProvider } from './context/AudioContext'
 import AssetsPage from './pages/assets'
 import GiftsPage from './pages/GiftsPage'
+import AdminRsvpPage from './pages/AdminRsvpPage'
 import { useLenis } from './hooks/useLenis'
 import { useImageScrollReveal } from './hooks/useScrollReveal'
 
@@ -108,6 +109,10 @@ export default function App() {
 
     if (path === '/presentes' || path === '/lista') {
       return <GiftsPage />
+    }
+
+    if (path === '/gestao' || path === '/admin') {
+      return <AdminRsvpPage />
     }
 
     return <Cover />

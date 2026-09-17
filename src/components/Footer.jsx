@@ -44,6 +44,13 @@ export default function Footer() {
 
         {/* Assinatura Afetiva Editorial */}
         <p className="footer-signature">Com todo o nosso carinho</p>
+
+        {/* Acesso aos Noivos */}
+        <div className="footer-admin-entry">
+          <a href="/gestao" className="admin-access-link" title="Área dos Noivos">
+            Área dos Noivos ✦
+          </a>
+        </div>
       </div>
     </footer>
   )
