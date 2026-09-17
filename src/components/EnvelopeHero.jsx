@@ -22,17 +22,14 @@ export default function EnvelopeHero({ onOpen, onTriggerLightCore, onTriggerWhit
         console.warn('Error setting currentTime:', err)
       }
 
-      const playPromise = video.play()
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn('Video play error, triggering fallback:', err)
-          if (onTriggerLightCore) onTriggerLightCore()
-          setTimeout(() => {
-            if (onTriggerWhiteout) onTriggerWhiteout()
-            setTimeout(() => onOpen(), 800)
-          }, 1000)
-        })
-      }
+      video.play().catch((err) => {
+        console.error('Erro no play:', err)
+        if (onTriggerLightCore) onTriggerLightCore()
+        setTimeout(() => {
+          if (onTriggerWhiteout) onTriggerWhiteout()
+          setTimeout(() => onOpen(), 800)
+        }, 1000)
+      })
     } else {
       if (onTriggerLightCore) onTriggerLightCore()
       setTimeout(() => {
@@ -76,7 +73,7 @@ export default function EnvelopeHero({ onOpen, onTriggerLightCore, onTriggerWhit
         <video
           ref={videoRef}
           className={`envelope-video-element${overexposed ? ' overexpose' : ''}`}
-          src="/assets/intro%20convite.mp4"
+          src="/assets/intro-convite.mp4"
           playsInline
           muted
           preload="auto"
