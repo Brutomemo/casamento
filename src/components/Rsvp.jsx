@@ -154,7 +154,6 @@ export default function Rsvp() {
         const { error } = await supabase
           .from('rsvp')
           .insert([payload])
-          .select()
 
         if (error) {
           console.error('Erro detalhado retornado pelo Supabase:', error)
