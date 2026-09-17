@@ -53,18 +53,26 @@ function Cover() {
   }
 
   const handleTriggerWhiteout = () => {
+    // 1. Inicia a subida da lavagem marfim (leva 900ms no CSS)
     setWhiteoutActive(true)
+
+    // 2. Quando a tela estiver 100% coberta e opaca (950ms):
+    setTimeout(() => {
+      // Desmonta o envelope e ativa a fase do convite por baixo do branco
+      setEnvelopeDismissed(true)
+      setPhase('invite')
+
+      // 3. Com o convite no lugar e o envelope já fora do DOM, desvanece o branco
+      setTimeout(() => {
+        setWhiteoutActive(false)
+        setLightCoreActive(false)
+      }, 150)
+    }, 950)
   }
 
   const handleOpen = () => {
     setPhase('invite')
-    setTimeout(() => {
-      setWhiteoutActive(false)
-      setLightCoreActive(false)
-      setTimeout(() => {
-        setEnvelopeDismissed(true)
-      }, 800)
-    }, 250)
+    setEnvelopeDismissed(true)
   }
 
   return (

@@ -150,6 +150,7 @@ img {
   z-index: 20;
   opacity: 1 !important;
   display: block !important;
+  background-color: transparent;
   transition: filter 1.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -170,8 +171,9 @@ img {
 }
 
 .hero-static-content.is-hidden {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* Camada de luz que nasce exatamente no centro geométrico e expande */
