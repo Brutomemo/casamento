@@ -223,7 +223,7 @@ export default function Rsvp() {
         <FloralDivider />
 
         <p className="rsvp-deadline">
-          POR GENTILEZA, CONFIRME ATÉ 10 DE OUTUBRO DE 2026
+          <span className="rsvp-deadline-pulse">POR GENTILEZA, CONFIRME ATÉ 10 DE OUTUBRO DE 2026</span>
         </p>
 
         {/* Nota Oficial de Acesso para Portaria */}

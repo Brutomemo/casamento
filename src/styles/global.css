@@ -4090,3 +4090,24 @@ img {
   object-fit: cover !important;
   object-position: top center !important; /* Mantém cabeças e rostos 100% visíveis */
 }
+
+/* Efeito sutil e sofisticado de pulsar para o prazo do RSVP */
+.rsvp-deadline-pulse {
+  font-weight: 600 !important;
+  letter-spacing: 0.12em;
+  display: inline-block;
+  animation: subtlePulse 2.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.88;
+  }
+  50% {
+    transform: scale(1.025);
+    opacity: 1;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+  }
+}
