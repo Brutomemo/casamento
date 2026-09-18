@@ -21,7 +21,7 @@ export default function CelebrationDetails() {
       <div className="celebration-container">
         {/* Sub-bloco 1: Contagem Regressiva Editorial */}
         <div className="celebration-countdown">
-          <p className="celebration-eyebrow">A Celebração</p>
+          <p className="celebration-eyebrow" style={{ marginBottom: '2rem' }}>A Celebração</p>
           <div className="countdown-digits-row">
             <div className="countdown-unit">
               <span className="countdown-number">{padZero(days)}</span>
@@ -69,7 +69,7 @@ export default function CelebrationDetails() {
 
         {/* Sub-bloco 3: Programação Oficial do Evento (Linha do Tempo Editorial Integrada) */}
         <div className="celebration-schedule">
-          <p className="celebration-eyebrow">Programação do Dia</p>
+          <p className="celebration-eyebrow" style={{ marginBottom: '1.75rem' }}>Programação do Dia</p>
           <div className="schedule-punctuality-notice">
             <span className="notice-icon">✦</span>
             <p>
@@ -93,7 +93,7 @@ export default function CelebrationDetails() {
         {/* Sub-bloco 4: Traje & Orientações (Dress Code Editorial) */}
         <div className="celebration-dresscode">
           <p className="celebration-eyebrow">Traje &amp; Orientações</p>
-          <h3 className="dresscode-title">Passeio Completo</h3>
+          <h3 className="dresscode-title" style={{ marginTop: '0.45rem', marginBottom: '1rem' }}>Passeio Completo</h3>
           <p className="dresscode-desc">
             Sugerimos terno ou costume para os cavalheiros e vestidos elegantes (longos ou mídis) para as damas.
           </p>

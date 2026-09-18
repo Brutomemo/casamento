@@ -144,7 +144,7 @@ export default function EditorialGallery() {
                 }}
               >
                 <div className="photo-stack-passepartout">
-                  <div className={`photo-stack-img-wrapper ${idx === 0 ? 'is-landscape' : ''} ${meta.roman === 'XI' ? 'is-luminescencia' : ''} ${meta.roman === 'XIV' || meta.roman === 'XV' ? 'is-landscape-full' : ''}`}>
+                  <div className={`photo-stack-img-wrapper ${meta.roman === 'III' || meta.roman === 'XIII' ? 'is-portrait' : ''} ${idx === 0 ? 'is-landscape' : ''} ${meta.roman === 'XI' ? 'is-luminescencia' : ''} ${meta.roman === 'XIV' || meta.roman === 'XV' ? 'is-landscape-full' : ''}`}>
                     <img
                       src={src}
                       alt={`Marcos e Graziela — Retrato ${photoNum}`}

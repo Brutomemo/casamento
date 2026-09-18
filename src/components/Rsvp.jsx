@@ -332,8 +332,8 @@ export default function Rsvp() {
             {/* Quantidades e Campos Dinâmicos de Acompanhantes (Se confirmou presença) */}
             {confirmado && (
               <>
-                <p className="rsvp-guideline-note">
-                  O convite é pessoal e reservado ao titular, com a possibilidade de até 1 acompanhante adulto e até 2 crianças. Por gentileza, informe os nomes completos para identificação na portaria.
+                <p className="rsvp-guideline-note" style={{ marginBottom: '1.5rem', lineHeight: '1.6' }}>
+                  O convite é pessoal e reservado ao titular. O preenchimento completo dos dados e documentos é indispensável para a liberação individual na portaria do local.
                 </p>
                 <div className="rsvp-field-row">
                   <div className="rsvp-field">
@@ -469,7 +469,7 @@ export default function Rsvp() {
 
         {/* Separador e Opções Alternativas de WhatsApp */}
         <div className="rsvp-whatsapp-header">
-          <span className="rsvp-whatsapp-title">OU CONFIRME DIRETAMENTE VIA WHATSAPP</span>
+          
         </div>
 
         <div className="rsvp-actions-grid">
