@@ -875,12 +875,11 @@ img {
   aspect-ratio: auto;
   display: block;
   transform-origin: center center;
-  will-change: transform, opacity, filter;
+  will-change: transform;
   border-radius: 0;
   border: none;
   margin: 0;
   padding: 0;
-  animation: heroPhotoReveal 1400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (max-width: 768px) {
@@ -969,8 +968,9 @@ img {
   text-transform: uppercase;
   color: var(--gold, #7b6244);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-  animation: heroSubtitleReveal 1000ms cubic-bezier(0.2, 0.8, 0.2, 1) 700ms both;
-  will-change: transform, opacity, filter;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(10px);
 }
 
 .hero-title-stack {
@@ -991,8 +991,9 @@ img {
   color: #ffffff;
   letter-spacing: -0.01em;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
-  animation: heroTextReveal 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) 300ms both;
-  will-change: transform, opacity, filter;
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(16px) scale(1.05);
 }
 
 /* E DO CASAL (&) COM RESPIRO LATERAL */
@@ -1005,8 +1006,9 @@ img {
   line-height: 1;
   padding: 0 4px;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-  animation: heroTextReveal 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) 400ms both;
-  will-change: transform, opacity, filter;
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(16px) scale(1.05);
 }
 
 /* DATA DO CASAMENTO */
@@ -1018,8 +1020,9 @@ img {
   color: rgba(255, 255, 255, 0.95);
   margin-top: 4px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-  animation: heroSubtitleReveal 1000ms cubic-bezier(0.2, 0.8, 0.2, 1) 700ms both;
-  will-change: transform, opacity, filter;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(10px);
 }
 
 /* MICROINDICADOR DISCRETO DE SCROLL NO RODAPÉ (LINHA VERTICAL MINIMALISTA) */
@@ -1053,52 +1056,6 @@ img {
     opacity: 1;
     transform: scaleY(1);
     transform-origin: top;
-  }
-}
-
-/* ============================================================
-   CINEMATIC PHOTOGRAPHIC TEXT REVEAL KEYFRAMES
-   ============================================================ */
-
-/* 1. Camada de Fotografia e Fundo */
-@keyframes heroPhotoReveal {
-  0% {
-    filter: blur(4px) brightness(0.96);
-    opacity: 0.85;
-    transform: scale(1.02);
-  }
-  100% {
-    filter: blur(0px) brightness(1);
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* 2. Conjunto Tipográfico Principal (Marcos & Grazi) */
-@keyframes heroTextReveal {
-  0% {
-    opacity: 0;
-    filter: blur(12px);
-    transform: translateY(16px) scale(1.04);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* 3. Subtítulo / Data (29 · 11 · 2026 e Eyebrow) */
-@keyframes heroSubtitleReveal {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translateY(10px) scale(1.02);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translateY(0) scale(1);
   }
 }
 
@@ -1433,8 +1390,8 @@ img {
   }
 
   .photo-stack-card {
-    transition: opacity 0.3s ease, transform 0.3s ease !important;
-    margin-bottom: clamp(40px, 8vh, 60px);
+    transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease !important;
+    margin-bottom: clamp(20px, 4vh, 32px);
     box-shadow: 0 4px 12px rgba(44, 39, 36, 0.08) !important;
     isolation: isolate !important;
   }
@@ -1442,27 +1399,119 @@ img {
   .photo-stack-card:last-child {
     margin-bottom: 30px !important;
   }
+
+  .photo-stack-card.is-behind {
+    transform: scale(0.96) !important;
+    filter: blur(4px) brightness(0.88);
+    opacity: 0.65;
+  }
+
+  .photo-stack-card:not(.is-behind) {
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  .photo-stack-card.is-stack-penultimate,
+  .photo-stack-card.is-photo-15,
+  .photo-stack-card.is-photo-15 .photo-stack-passepartout,
+  .photo-stack-card.is-photo-15 .photo-stack-img-wrapper,
+  .photo-stack-card.is-photo-15 .photo-stack-img {
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000px !important;
+    perspective: 1000px !important;
+    contain: paint layout;
+  }
+
+  .photo-stack-card.is-stack-penultimate {
+    margin-bottom: clamp(72px, 14vh, 120px) !important;
+  }
+
+  .photo-stack-card.is-stack-last {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+  }
+
+  .photo-stack-card.is-stack-penultimate.is-behind,
+  .photo-stack-card.is-stack-last.is-behind,
+  .photo-stack-card.is-photo-15.is-behind {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
 }
 
 .photo-stack-card {
   position: sticky;
   top: clamp(75px, 12vh, 100px);
-  margin-bottom: clamp(50px, 10vh, 80px);
+  margin-bottom: clamp(28px, 6vh, 48px);
   width: 100%;
   background: var(--cream, #f5efeb);
   border: 1px solid rgba(184, 150, 106, 0.3);
   box-shadow: 0 16px 36px -12px rgba(44, 39, 36, 0.16);
   border-radius: 2px;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.55s ease, opacity 0.55s ease, filter 0.55s ease;
   touch-action: pan-y;
   isolation: isolate;
-  transform-origin: left center;
+  transform-origin: center top;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
 .photo-stack-card:last-child {
   margin-bottom: 40px;
+}
+
+.photo-stack-card.is-behind {
+  filter: blur(4px) brightness(0.88);
+  opacity: 0.65;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+.photo-stack-card:not(.is-behind) {
+  filter: blur(0px);
+  opacity: 1;
+}
+
+.photo-stack-card.is-stack-penultimate,
+.photo-stack-card.is-photo-15 {
+  margin-bottom: clamp(80px, 16vh, 140px);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  contain: paint layout;
+  will-change: transform;
+}
+
+.photo-stack-card.is-photo-15 .photo-stack-passepartout,
+.photo-stack-card.is-photo-15 .photo-stack-img-wrapper,
+.photo-stack-card.is-photo-15 .photo-stack-img {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  contain: paint layout;
+}
+
+.photo-stack-card.is-stack-last {
+  position: relative;
+  top: auto;
+}
+
+.photo-stack-card.is-stack-penultimate.is-behind,
+.photo-stack-card.is-stack-last.is-behind,
+.photo-stack-card.is-photo-15.is-behind {
+  filter: none;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
 }
 
 .photo-stack-passepartout {
@@ -1661,6 +1710,13 @@ img {
     transform: none !important;
     filter: none !important;
     opacity: 1 !important;
+  }
+
+  .photo-stack-card.is-behind {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    pointer-events: auto;
   }
 }
 
@@ -3287,8 +3343,49 @@ img {
   justify-content: center;
   cursor: pointer;
   outline: none;
+  overflow: visible;
   transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   -webkit-tap-highlight-color: transparent;
+}
+
+.audio-control-btn .sonar-wave {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 160, 89, 0.55);
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+.audio-control-btn:not(.is-playing) .sonar-wave-1 {
+  animation: musicSonar 3s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.audio-control-btn:not(.is-playing) .sonar-wave-2 {
+  animation: musicSonar 3s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  animation-delay: -1.5s;
+}
+
+.audio-control-btn.is-playing .sonar-wave {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes musicSonar {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 
 /* Área de clique expandida (hitbox 48x48px) */
@@ -3310,6 +3407,8 @@ img {
 }
 
 .audio-control-icon {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4013,12 +4112,22 @@ img {
   top: 10vh !important;
   width: 100%;
   max-width: 680px;
-  margin: 0 auto 18vh auto !important; /* Esse espaçamento garante que você role antes do próximo card cobrir */
-  will-change: transform;
+  margin: 0 auto clamp(24px, 6vh, 44px) auto !important;
+  will-change: transform, opacity, filter;
 }
 
 .photo-stack-card:last-child {
   margin-bottom: 2rem !important; /* substitui os 18vh apenas no último card */
+}
+
+.photo-stack-card.is-stack-penultimate,
+.photo-stack-card.is-photo-15 {
+  margin-bottom: clamp(80px, 16vh, 140px) !important;
+}
+
+.photo-stack-card.is-stack-last {
+  position: relative !important;
+  top: auto !important;
 }
 
 /* Passepartout / Moldura da Foto */

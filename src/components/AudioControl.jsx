@@ -6,12 +6,14 @@ export default function AudioControl() {
   return (
     <button
       type="button"
-      className={`audio-control-btn ${isPlaying ? 'is-playing' : 'is-paused'}`}
+      className={`audio-control-btn ${isPlaying ? 'is-playing' : 'is-paused music-btn-idle'}`}
       onClick={toggleAudio}
       aria-label={isPlaying ? 'Pausar música ambiente' : 'Iniciar música ambiente'}
       title={isPlaying ? 'Pausar música ambiente' : 'Iniciar música ambiente'}
     >
       <span className="audio-control-hitbox" aria-hidden="true" />
+      <span className="sonar-wave sonar-wave-1" aria-hidden="true" />
+      <span className="sonar-wave sonar-wave-2" aria-hidden="true" />
       <span className="audio-control-icon">
         {isPlaying ? (
           <svg

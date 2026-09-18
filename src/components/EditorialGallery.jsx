@@ -1,4 +1,9 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import { usePhotos } from '../hooks/usePhotos'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const STACK_CARDS_META = [
   {
@@ -107,6 +112,61 @@ export default function EditorialGallery() {
           '/photos/16.webp',
         ]
 
+  const stackRef = useRef(null)
+  const photoKey = photosToDisplay.join('|')
+
+  useEffect(() => {
+    const container = stackRef.current
+    if (!container) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const cards = Array.from(container.querySelectorAll('.photo-stack-card'))
+    if (cards.length < 2) return
+
+    const updateDepth = () => {
+      const penultimateIndex = cards.length - 2
+
+      cards.forEach((card, index) => {
+        // Penúltimo e último nunca entram no ciclo is-behind:
+        // o sticky compartilhado + filter/scale gerava recálculo infinito no Card XV.
+        if (index >= penultimateIndex) {
+          card.classList.remove('is-behind')
+          return
+        }
+
+        const next = cards[index + 1]
+        if (!next) {
+          card.classList.remove('is-behind')
+          return
+        }
+
+        const delta = next.getBoundingClientRect().top - card.getBoundingClientRect().top
+        const isBehind = card.classList.contains('is-behind')
+
+        if (!isBehind && delta <= 8) {
+          card.classList.add('is-behind')
+        } else if (isBehind && delta > 40) {
+          card.classList.remove('is-behind')
+        }
+      })
+    }
+
+    const trigger = ScrollTrigger.create({
+      trigger: container,
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: updateDepth,
+      onRefresh: updateDepth,
+    })
+
+    updateDepth()
+
+    return () => {
+      trigger.kill()
+      cards.forEach((card) => card.classList.remove('is-behind'))
+    }
+  }, [photoKey])
+
   return (
     <section className="editorial-gallery" aria-label="Galeria de Registros">
       {/* Overlay de textura contínua de papel de algodão */}
@@ -125,19 +185,28 @@ export default function EditorialGallery() {
         </header>
 
         {/* Trilho de Empilhamento Sticky Card Stack */}
-        <div className="photo-stack-container">
+        <div className="photo-stack-container" ref={stackRef}>
           {photosToDisplay.map((src, idx) => {
             const meta = STACK_CARDS_META[idx % STACK_CARDS_META.length] || { roman: '', title: '', location: '' }
             const photoNum = idx + 2
             const isEager = idx < 2 || idx >= photosToDisplay.length - 2
             const isLandscapeOrFull = idx === 0 || meta.roman === 'XIV' || meta.roman === 'XV'
+            const isLast = idx === photosToDisplay.length - 1
+            const isPenultimate = idx === photosToDisplay.length - 2
+            const isPhoto15 = /\/15\.(webp|jpeg|jpg|png)$/i.test(src)
 
             const calculatedZIndex = (idx + 1) * 10
+            const cardClassName = [
+              'photo-stack-card',
+              isPenultimate ? 'is-stack-penultimate' : '',
+              isLast ? 'is-stack-last' : '',
+              isPhoto15 ? 'is-photo-15' : '',
+            ].filter(Boolean).join(' ')
 
             return (
               <article
                 key={src}
-                className="photo-stack-card"
+                className={cardClassName}
                 style={{
                   zIndex: calculatedZIndex,
                   isolation: 'isolate',

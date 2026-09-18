@@ -36,8 +36,10 @@ export function useScrollReveal() {
   return ref
 }
 
-export function useImageScrollReveal(containerRef) {
+export function useImageScrollReveal(containerRef, enabled = true) {
   useEffect(() => {
+    if (!enabled) return
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
@@ -47,38 +49,45 @@ export function useImageScrollReveal(containerRef) {
     let triggers = []
 
     const timer = setTimeout(() => {
-      // Seleciona todas as imagens da página, exceto as do álbum de fotos, hero principal e envelope
-      const images = Array.from(targetContainer.querySelectorAll('img')).filter((img) => {
-        return (
-          !img.closest('.photo-stack-card') &&
-          !img.closest('.photo-stack-passepartout') &&
-          !img.closest('.gallery') &&
-          !img.classList.contains('hero-bg-photo') &&
-          !img.closest('.envelope-hero')
-        )
+      // Inclusão positiva: apenas elementos decorativos (ilustrações, florais, divisores, ornamentos)
+      // NUNCA fotos do casal
+      const decorativeSelectors = [
+        '.floral-divider',
+        '.editorial-divider',
+        '.hero-floral',
+        '.floral-icon',
+        'svg[aria-hidden="true"]',
+      ]
+
+      const decoratives = Array.from(
+        targetContainer.querySelectorAll(decorativeSelectors.join(', '))
+      ).filter((el) => {
+        if (el.closest('.envelope-hero')) return false
+        if (el.closest('.photo-stack-card')) return false
+        if (el.closest('.hero-bg-layer')) return false
+        if (el.classList.contains('hero-bg-photo') || el.classList.contains('photo-stack-img')) return false
+        return true
       })
 
-      if (images.length === 0) return
+      if (decoratives.length === 0) return
 
-      triggers = images.map((img) => {
+      triggers = decoratives.map((el) => {
         return gsap.fromTo(
-          img,
+          el,
           {
-            opacity: 0,
-            filter: 'blur(12px)',
-            y: 16,
-            scale: 1.04,
+            autoAlpha: 0,
+            filter: 'blur(10px)',
+            y: 12,
           },
           {
-            opacity: 1,
+            autoAlpha: 1,
             filter: 'blur(0px)',
             y: 0,
-            scale: 1,
             duration: 1.2,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: img,
-              start: 'top 88%',
+              trigger: el,
+              start: 'top 90%',
               once: true,
             },
           },
@@ -86,7 +95,7 @@ export function useImageScrollReveal(containerRef) {
       })
 
       ScrollTrigger.refresh()
-    }, 150)
+    }, 200)
 
     return () => {
       clearTimeout(timer)
@@ -95,5 +104,5 @@ export function useImageScrollReveal(containerRef) {
         t.kill()
       })
     }
-  }, [containerRef])
+  }, [containerRef, enabled])
 }

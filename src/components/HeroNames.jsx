@@ -5,41 +5,86 @@ import { wedding } from '../config'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function HeroNames() {
+export default function HeroNames({ inviteVisible = false }) {
   const containerRef = useRef(null)
   const photoRef = useRef(null)
   const bgRef = useRef(null)
   const contentRef = useRef(null)
   const indicatorRef = useRef(null)
 
+  // ============================================================
+  // 1. ANIMAÇÃO DE ENTRADA (LENTE FOTOGRÁFICA) — só quando a tela está visível
+  // ============================================================
   useEffect(() => {
+    if (!inviteVisible) return
+
+    const container = containerRef.current
+    if (!container) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const names = container.querySelectorAll('.hero-couple-name')
+    const amp = container.querySelector('.hero-couple-amp')
+    const dateBadge = container.querySelector('.hero-date-badge')
+    const eyebrow = container.querySelector('.hero-eyebrow')
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 0.15 })
+
+      if (names.length) {
+        tl.fromTo(
+          names,
+          { autoAlpha: 0, filter: 'blur(14px)', scale: 1.05, y: 16 },
+          { autoAlpha: 1, filter: 'blur(0px)', scale: 1, y: 0, duration: 1.5, ease: 'power2.out' },
+          0
+        )
+      }
+
+      if (amp) {
+        tl.fromTo(
+          amp,
+          { autoAlpha: 0, filter: 'blur(14px)', scale: 1.05, y: 16 },
+          { autoAlpha: 1, filter: 'blur(0px)', scale: 1, y: 0, duration: 1.5, ease: 'power2.out' },
+          0.1
+        )
+      }
+
+      if (eyebrow || dateBadge) {
+        const subs = []
+        if (eyebrow) subs.push(eyebrow)
+        if (dateBadge) subs.push(dateBadge)
+
+        tl.fromTo(
+          subs,
+          { autoAlpha: 0, filter: 'blur(8px)', y: 10 },
+          { autoAlpha: 1, filter: 'blur(0px)', y: 0, duration: 1.1, ease: 'power2.out' },
+          '-=0.9'
+        )
+      }
+    }, container)
+
+    return () => ctx.revert()
+  }, [inviteVisible])
+
+  // ============================================================
+  // 2. MECÂNICA DO SCROLL CINEMATOGRÁFICO DE CÂMERA (PARALLAX)
+  // ============================================================
+  useEffect(() => {
+    if (!inviteVisible) return
+
     const container = containerRef.current
     const bg = bgRef.current
     const content = contentRef.current
     const indicator = indicatorRef.current
 
     if (!container || !bg || !content) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) return
-
-    // ============================================================
-    // MECÂNICA DO SCROLL CINEMATOGRÁFICO DE CÂMERA (GSAP SCROLL-DRIVEN M3):
-    // 1. Fotografia: Recuo de escala (1.05 -> 1.00) e deslocamento vertical (translate3d 0 -> 18%)
-    // 2. Bloco de Nomes & Data: Descola da foto (yPercent: -15 / translateY: -30px) com desvanecimento
-    // 3. Microindicador: Desvanece nos primeiros ~30px de scroll
-    // ============================================================
     const st = gsap.timeline({
       scrollTrigger: {
         trigger: container,
         start: 'top top',
         end: 'bottom top',
         scrub: 0.5,
-        onUpdate: (self) => {
-          if (process.env.NODE_ENV === 'development') {
-            console.log('[Hero Scroll Progress]:', self.progress.toFixed(3))
-          }
-        },
       },
     })
 
@@ -51,10 +96,9 @@ export default function HeroNames() {
       0
     )
 
-    // Bloco de Nomes e Data descola mais rápido (yPercent: -15) e perde opacidade
-    st.fromTo(
+    // Bloco de Nomes e Data descola mais rápido (yPercent: -15) e perde opacidade no scroll
+    st.to(
       content,
-      { yPercent: 0, opacity: 1 },
       { yPercent: -15, opacity: 0.3, ease: 'none' },
       0
     )
@@ -70,7 +114,7 @@ export default function HeroNames() {
       st.scrollTrigger?.kill()
       st.kill()
     }
-  }, [])
+  }, [inviteVisible])
 
   return (
     <section className="cinematic-hero" ref={containerRef}>

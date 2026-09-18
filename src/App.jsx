@@ -15,13 +15,13 @@ import AdminRsvpPage from './pages/AdminRsvpPage'
 import { useLenis } from './hooks/useLenis'
 import { useImageScrollReveal } from './hooks/useScrollReveal'
 
-function Invitation() {
+function Invitation({ inviteVisible }) {
   useLenis()
-  useImageScrollReveal()
+  useImageScrollReveal(undefined, inviteVisible)
 
   return (
     <div className="page page-enter">
-      <HeroNames />
+      <HeroNames inviteVisible={inviteVisible} />
       <StoryMessage />
       <CelebrationDetails />
       <EditorialGallery />
@@ -37,6 +37,7 @@ function Cover() {
   const [lightCoreActive, setLightCoreActive] = useState(false)
   const [whiteoutActive, setWhiteoutActive] = useState(false)
   const [envelopeDismissed, setEnvelopeDismissed] = useState(false)
+  const [inviteVisible, setInviteVisible] = useState(false)
 
   useEffect(() => {
     const locked = phase !== 'invite'
@@ -49,22 +50,29 @@ function Cover() {
     }
   }, [phase])
 
+  // Fallback: se o transitionend do whiteout não disparar, revela após o fade de 900ms
+  useEffect(() => {
+    if (inviteVisible || whiteoutActive || phase !== 'invite') return
+
+    const revealTimer = window.setTimeout(() => {
+      setInviteVisible(true)
+    }, 1000)
+
+    return () => window.clearTimeout(revealTimer)
+  }, [inviteVisible, whiteoutActive, phase])
+
   const handleTriggerLightCore = () => {
     setLightCoreActive(true)
   }
 
   const handleTriggerWhiteout = () => {
-    // 1. Inicia a subida da lavagem marfim (leva 900ms no CSS)
     setWhiteoutActive(true)
 
-    // 2. Quando a tela estiver 100% coberta e opaca (950ms):
-    setTimeout(() => {
-      // Desmonta o envelope e ativa a fase do convite por baixo do branco
+    window.setTimeout(() => {
       setEnvelopeDismissed(true)
       setPhase('invite')
 
-      // 3. Com o convite no lugar e o envelope já fora do DOM, desvanece o branco
-      setTimeout(() => {
+      window.setTimeout(() => {
         setWhiteoutActive(false)
         setLightCoreActive(false)
       }, 150)
@@ -74,12 +82,20 @@ function Cover() {
   const handleOpen = () => {
     setPhase('invite')
     setEnvelopeDismissed(true)
+    setInviteVisible(true)
+  }
+
+  const handleWhiteoutTransitionEnd = (event) => {
+    if (event.target !== event.currentTarget) return
+    if (event.propertyName !== 'opacity') return
+    if (event.currentTarget.classList.contains('active')) return
+    setInviteVisible(true)
   }
 
   return (
     <>
       {/* 1. Página principal pré-montada por baixo desde o início para evitar repaint flash no mobile */}
-      <Invitation />
+      <Invitation inviteVisible={inviteVisible} />
 
       {/* 2. Camada de Envelope sobreposta (z-index: 50) */}
       {!envelopeDismissed ? (
@@ -94,7 +110,11 @@ function Cover() {
       <div className={`cinematic-light-core${lightCoreActive ? ' active' : ''}`} aria-hidden="true" />
 
       {/* Camada 2: Lavagem final total em marfim suave (#FCFBF7) */}
-      <div className={`cinematic-whiteout${whiteoutActive ? ' active' : ''}`} aria-hidden="true" />
+      <div
+        className={`cinematic-whiteout${whiteoutActive ? ' active' : ''}`}
+        aria-hidden="true"
+        onTransitionEnd={handleWhiteoutTransitionEnd}
+      />
     </>
   )
 }
