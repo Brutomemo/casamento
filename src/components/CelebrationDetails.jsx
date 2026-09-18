@@ -70,6 +70,12 @@ export default function CelebrationDetails() {
         {/* Sub-bloco 3: Programação Oficial do Evento (Linha do Tempo Editorial Integrada) */}
         <div className="celebration-schedule">
           <p className="celebration-eyebrow">Programação do Dia</p>
+          <div className="schedule-punctuality-notice">
+            <span className="notice-icon">✦</span>
+            <p>
+              <strong>Chegada até às 12h30:</strong> Solicitamos a máxima pontualidade para acomodação dos convidados. Para preservar a solenidade e evitar interrupções no cortejo, o acesso será fechado durante a cerimónia.
+            </p>
+          </div>
           <div className="schedule-list">
             {officialSchedule.map((item, index) => (
               <div key={index} className="schedule-item">
