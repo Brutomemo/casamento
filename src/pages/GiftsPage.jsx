@@ -47,7 +47,7 @@ const GIFTS_CATALOG = [
   {
     id: 'cota-cruzeiro-msc-virtuosa',
     category: 'LUA DE MEL',
-    title: 'Cota do Cruzeiro MSC Virtuosa 2026',
+    title: 'Cota do Cruzeiro MSC Virtuosa 2027',
     value: 'R$ 500,00',
     price: 'R$ 500,00',
     description: 'Uma contribuição especial para navegarmos juntos em alto-mar, celebrando nossos primeiros dias de casados.',
