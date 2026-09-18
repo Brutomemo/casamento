@@ -2,10 +2,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const items = [
   ['12h00', 'Recepção'],
-  ['13h00', 'Cerimônia'],
-  ['14h00', 'Refeição'],
-  ['17h00', 'Pista de dança'],
-  ['20h00', 'Encerramento'],
+  ['19h00', 'Encerramento'],
 ]
 
 export default function Timeline() {
