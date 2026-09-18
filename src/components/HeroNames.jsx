@@ -77,6 +77,7 @@ export default function HeroNames({ inviteVisible = false }) {
     const indicator = indicatorRef.current
 
     if (!container || !bg || !content) return
+    if (window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const st = gsap.timeline({

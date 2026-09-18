@@ -119,13 +119,51 @@ export default function EditorialGallery() {
     const container = stackRef.current
     if (!container) return
 
-    const isMobile =
-      window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches
-    if (isMobile) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
     const cards = Array.from(container.querySelectorAll('.photo-stack-card'))
     if (cards.length < 2) return
+
+    const isMobile =
+      window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches
+
+    if (isMobile) {
+      let ticking = false
+
+      const updateCovered = () => {
+        ticking = false
+        cards.forEach((card, index) => {
+          const next = cards[index + 1]
+          if (!next) {
+            card.classList.remove('is-covered')
+            return
+          }
+
+          const delta = next.getBoundingClientRect().top - card.getBoundingClientRect().top
+          const isCovered = card.classList.contains('is-covered')
+
+          if (!isCovered && delta <= 1) {
+            card.classList.add('is-covered')
+          } else if (isCovered && delta > 20) {
+            card.classList.remove('is-covered')
+          }
+        })
+      }
+
+      const onScroll = () => {
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(updateCovered)
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true })
+      updateCovered()
+
+      return () => {
+        window.removeEventListener('scroll', onScroll)
+        cards.forEach((card) => card.classList.remove('is-covered'))
+      }
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const updateDepth = () => {
       const penultimateIndex = cards.length - 2
@@ -191,7 +229,7 @@ export default function EditorialGallery() {
           {photosToDisplay.map((src, idx) => {
             const meta = STACK_CARDS_META[idx % STACK_CARDS_META.length] || { roman: '', title: '', location: '' }
             const photoNum = idx + 2
-            const isEager = idx < 2 || idx >= photosToDisplay.length - 2
+            const isEager = idx < 2
             const isLandscapeOrFull = idx === 0 || meta.roman === 'XIV' || meta.roman === 'XV'
             const calculatedZIndex = (idx + 1) * 10
 

@@ -1365,8 +1365,6 @@ img {
   border-radius: 2px;
   box-shadow: 0 16px 36px -12px rgba(44, 39, 36, 0.16);
   touch-action: pan-y;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 520px;
 }
 
 .photo-stack-card:last-child {
@@ -1493,7 +1491,6 @@ img {
     transform: none;
     filter: none;
     perspective: none;
-    contain: none;
     -webkit-mask-image: none;
     mask-image: none;
   }
@@ -1502,6 +1499,16 @@ img {
     position: -webkit-sticky;
     position: sticky;
     top: 10vh;
+  }
+
+  .photo-stack-card.is-covered {
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: none;
+  }
+
+  .photo-stack-card.is-covered .photo-stack-passepartout {
+    box-shadow: none;
   }
 
   .photo-stack-card.is-behind {
@@ -1561,7 +1568,6 @@ img {
 
 /* Efeito Papel Fotográfico (Matte Finish) - Véu de luz editorial quente */
 .polaroid-frame::after,
-.photo-stack-passepartout::after,
 .album-card-wrapper::after {
   content: '';
   position: absolute;
@@ -1575,6 +1581,23 @@ img {
   pointer-events: none;
   border-radius: inherit;
   z-index: 2;
+}
+
+@media (min-width: 769px) {
+  .photo-stack-passepartout::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 30%,
+      rgba(255, 250, 240, 0.08) 0%,
+      rgba(40, 30, 20, 0.04) 100%
+    );
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 2;
+  }
 }
 
 .photo-stack-caption {
