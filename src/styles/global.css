@@ -1271,8 +1271,9 @@ img {
    ============================================================ */
 .editorial-gallery {
   position: relative;
+  width: 100%;
   background-color: var(--cream, #f5efeb);
-  padding: clamp(60px, 10vw, 100px) var(--page-pad, 20px) 0;
+  padding: clamp(40px, 8vw, 100px) var(--page-pad, 20px) 2rem;
 }
 
 .editorial-paper-overlay {
@@ -1290,7 +1291,7 @@ img {
 .editorial-container {
   position: relative;
   z-index: 2;
-  max-width: 1080px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -1341,177 +1342,42 @@ img {
   opacity: 0.7;
 }
 
-/* Sticky Card Stack / Overlapping Sticky Cards Architecture */
-/* Sticky Card Stack / Overlapping Sticky Cards Architecture */
+/* Sticky Card Stack — bloco único */
 .photo-stack-container {
+  display: block;
   position: relative;
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 16px 3rem;
   touch-action: pan-y pinch-zoom;
-  overscroll-behavior-x: none;
-  overscroll-behavior-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.photo-stack-container,
-.photo-stack-card,
-.photo-stack-passepartout,
-.photo-stack-img-wrapper,
-.photo-stack-img {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-perspective: 1000px;
-  perspective: 1000px;
-  will-change: transform;
-}
-
-/* Mobile GPU Decompression & 2D Fallback for Photo Stack */
-@media (max-width: 768px) {
-  .photo-stack-container,
-  .photo-stack-card,
-  .photo-stack-card *,
-  .photo-stack-passepartout,
-  .photo-stack-passepartout *,
-  .photo-stack-img-wrapper,
-  .photo-stack-img {
-    -webkit-perspective: none !important;
-    perspective: none !important;
-    transform-style: flat !important;
-    -webkit-transform-style: flat !important;
-    will-change: auto !important;
-    -webkit-transform: none !important;
-    transform: none !important;
-    -webkit-backface-visibility: hidden !important;
-    backface-visibility: hidden !important;
-  }
-
-  .photo-stack-card {
-    transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease !important;
-    margin-bottom: clamp(20px, 4vh, 32px);
-    box-shadow: 0 4px 12px rgba(44, 39, 36, 0.08) !important;
-    isolation: isolate !important;
-  }
-
-  .photo-stack-card:last-child {
-    margin-bottom: 30px !important;
-  }
-
-  .photo-stack-card.is-behind {
-    transform: scale(0.96) !important;
-    filter: blur(4px) brightness(0.88);
-    opacity: 0.65;
-  }
-
-  .photo-stack-card:not(.is-behind) {
-    filter: blur(0);
-    opacity: 1;
-  }
-
-  .photo-stack-card.is-stack-penultimate,
-  .photo-stack-card.is-photo-15,
-  .photo-stack-card.is-photo-15 .photo-stack-passepartout,
-  .photo-stack-card.is-photo-15 .photo-stack-img-wrapper,
-  .photo-stack-card.is-photo-15 .photo-stack-img {
-    -webkit-transform: translate3d(0, 0, 0) !important;
-    transform: translate3d(0, 0, 0) !important;
-    -webkit-backface-visibility: hidden !important;
-    backface-visibility: hidden !important;
-    -webkit-perspective: 1000px !important;
-    perspective: 1000px !important;
-    contain: paint layout;
-  }
-
-  .photo-stack-card.is-stack-penultimate {
-    margin-bottom: clamp(72px, 14vh, 120px) !important;
-  }
-
-  .photo-stack-card.is-stack-last {
-    position: relative !important;
-    top: auto !important;
-    transform: none !important;
-  }
-
-  .photo-stack-card.is-stack-penultimate.is-behind,
-  .photo-stack-card.is-stack-last.is-behind,
-  .photo-stack-card.is-photo-15.is-behind {
-    filter: none !important;
-    opacity: 1 !important;
-    transform: translate3d(0, 0, 0) !important;
-  }
 }
 
 .photo-stack-card {
+  position: -webkit-sticky;
   position: sticky;
-  top: clamp(75px, 12vh, 100px);
-  margin-bottom: clamp(28px, 6vh, 48px);
+  top: 10vh;
   width: 100%;
+  max-width: 680px;
+  margin: 0 auto clamp(24px, 6vh, 44px);
   background: var(--cream, #f5efeb);
   border: 1px solid rgba(184, 150, 106, 0.3);
-  box-shadow: 0 16px 36px -12px rgba(44, 39, 36, 0.16);
   border-radius: 2px;
-  transition: transform 0.55s ease, opacity 0.55s ease, filter 0.55s ease;
+  box-shadow: 0 16px 36px -12px rgba(44, 39, 36, 0.16);
   touch-action: pan-y;
-  isolation: isolate;
-  transform-origin: center top;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
 }
 
 .photo-stack-card:last-child {
-  margin-bottom: 40px;
+  margin-bottom: 2rem;
 }
 
-.photo-stack-card.is-behind {
-  filter: blur(4px) brightness(0.88);
-  opacity: 0.65;
-  transform: scale(0.96);
-  pointer-events: none;
-}
-
-.photo-stack-card:not(.is-behind) {
-  filter: blur(0px);
-  opacity: 1;
-}
-
-.photo-stack-card.is-stack-penultimate,
-.photo-stack-card.is-photo-15 {
-  margin-bottom: clamp(80px, 16vh, 140px);
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
-  contain: paint layout;
-  will-change: transform;
-}
-
-.photo-stack-card.is-photo-15 .photo-stack-passepartout,
-.photo-stack-card.is-photo-15 .photo-stack-img-wrapper,
-.photo-stack-card.is-photo-15 .photo-stack-img {
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
-  contain: paint layout;
-}
-
-.photo-stack-card.is-stack-last {
-  position: relative;
-  top: auto;
-}
-
-.photo-stack-card.is-stack-penultimate.is-behind,
-.photo-stack-card.is-stack-last.is-behind,
-.photo-stack-card.is-photo-15.is-behind {
-  filter: none;
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-  pointer-events: auto;
+@media (min-width: 769px) {
+  .photo-stack-card.is-behind {
+    opacity: 0.78;
+    pointer-events: none;
+  }
 }
 
 .photo-stack-passepartout {
@@ -1519,28 +1385,22 @@ img {
   background: #faf6f2;
   border: 1px solid rgba(197, 160, 89, 0.35);
   border-radius: 2px;
-  padding: clamp(14px, 2.5vw, 20px);
-  box-shadow: 0 15px 35px -10px rgba(44, 39, 36, 0.12), 0 0 1px rgba(184, 150, 106, 0.2);
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
   overflow: hidden;
-  isolation: isolate;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 .photo-stack-img-wrapper,
 .gallery-thumb {
-  position: relative !important;
-  isolation: isolate;
+  position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 1px;
   background: #f0e8e0;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 /* Película fotográfica editorial - Mix Blend Mode Color */
@@ -1610,13 +1470,59 @@ img {
   }
 }
 
+.photo-stack-img-wrapper.is-portrait {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+}
+
+.photo-stack-img-wrapper.is-portrait .photo-stack-img {
+  object-position: top center;
+}
+
 @media (max-width: 768px) {
-  .photo-stack-img-wrapper.is-landscape-full {
-    width: 100% !important;
-    height: 100% !important;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    contain: layout paint size;
+  .editorial-gallery .editorial-paper-overlay {
+    mix-blend-mode: normal;
+  }
+
+  .photo-stack-container,
+  .photo-stack-card,
+  .photo-stack-passepartout,
+  .photo-stack-img-wrapper,
+  .photo-stack-img {
+    will-change: auto;
+    transform: none;
+    filter: none;
+    perspective: none;
+    contain: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .photo-stack-card {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10vh;
+  }
+
+  .photo-stack-card.is-behind {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .photo-stack-img-wrapper::before,
+  .photo-stack-img-wrapper::after,
+  .photo-stack-passepartout::after {
+    content: none !important;
+    mix-blend-mode: normal !important;
+    display: none;
+  }
+
+  .photo-stack-card .photo-stack-img,
+  .photo-stack-container img {
+    filter: none !important;
+    transform: none !important;
   }
 }
 
@@ -1705,18 +1611,11 @@ img {
 /* Reduced Motion Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .photo-stack-card {
-    position: static !important;
-    top: auto !important;
-    transform: none !important;
-    filter: none !important;
-    opacity: 1 !important;
-  }
-
-  .photo-stack-card.is-behind {
-    transform: none !important;
-    filter: none !important;
-    opacity: 1 !important;
-    pointer-events: auto;
+    position: static;
+    top: auto;
+    transform: none;
+    filter: none;
+    opacity: 1;
   }
 }
 
@@ -3498,6 +3397,16 @@ img {
   }
 }
 
+@media (max-width: 768px) {
+  .photo-stack-card .photo-stack-img,
+  .photo-stack-container img,
+  .editorial-gallery .photo-stack-img {
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* ============================================================
    ESTILOS PAINEL ADMINISTRATIVO ÁREA DOS NOIVOS (/gestao)
    ============================================================ */
@@ -4081,123 +3990,6 @@ img {
   .admin-filter-tabs {
     overflow-x: auto;
   }
-}
-
-/* Container da Galeria Editorial */
-.editorial-gallery {
-  position: relative;
-  width: 100%;
-  padding: 2.5rem 1rem 2rem 1rem !important; /* reduziu o padding inferior para 2rem */
-  background-color: var(--color-bg, #fbfaf6);
-}
-
-.editorial-container {
-  max-width: 860px;
-  margin: 0 auto;
-  position: relative;
-}
-
-/* Trilho do Stack */
-.photo-stack-container {
-  display: block !important;
-  position: relative;
-  width: 100%;
-  padding-bottom: 3rem !important; /* antes estava 25vh */
-}
-
-/* O Cartão Empilhável */
-.photo-stack-card {
-  position: -webkit-sticky !important;
-  position: sticky !important;
-  top: 10vh !important;
-  width: 100%;
-  max-width: 680px;
-  margin: 0 auto clamp(24px, 6vh, 44px) auto !important;
-  will-change: transform, opacity, filter;
-}
-
-.photo-stack-card:last-child {
-  margin-bottom: 2rem !important; /* substitui os 18vh apenas no último card */
-}
-
-.photo-stack-card.is-stack-penultimate,
-.photo-stack-card.is-photo-15 {
-  margin-bottom: clamp(80px, 16vh, 140px) !important;
-}
-
-.photo-stack-card.is-stack-last {
-  position: relative !important;
-  top: auto !important;
-}
-
-/* Passepartout / Moldura da Foto */
-.photo-stack-passepartout {
-  background: #ffffff;
-  padding: 1.25rem 1.25rem 1.5rem 1.25rem;
-  border-radius: 4px;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.photo-stack-img-wrapper {
-  position: relative;
-  width: 100% !important;
-  aspect-ratio: 4 / 3 !important;
-  overflow: hidden;
-  background-color: #f0ede6;
-  border-radius: 2px;
-}
-
-.photo-stack-img-wrapper.is-landscape-full {
-  aspect-ratio: 4 / 3 !important;
-}
-
-.photo-stack-img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center;
-  display: block;
-}
-
-/* Legenda com Versículo */
-.photo-stack-caption {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.photo-stack-roman {
-  font-family: var(--font-serif, serif);
-  font-size: 0.95rem;
-  line-height: 1.4;
-  color: var(--color-text, #2c2a29);
-  font-style: italic;
-}
-
-.photo-stack-location {
-  font-family: var(--font-sans, sans-serif);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-muted, #8b8580);
-}
-
-/* Proporção vertical elegante para fotos de formato retrato */
-.photo-stack-img-wrapper.is-portrait {
-  aspect-ratio: 3 / 4 !important; /* ou 4 / 5 */
-  width: 100% !important;
-}
-
-/* Garantir enquadramento e corte na base inferior */
-.photo-stack-img-wrapper.is-portrait .photo-stack-img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: top center !important; /* Mantém cabeças e rostos 100% visíveis */
 }
 
 /* Efeito sutil e sofisticado de pulsar para o prazo do RSVP */

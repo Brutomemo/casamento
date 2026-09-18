@@ -118,6 +118,10 @@ export default function EditorialGallery() {
   useEffect(() => {
     const container = stackRef.current
     if (!container) return
+
+    const isMobile =
+      window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches
+    if (isMobile) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const cards = Array.from(container.querySelectorAll('.photo-stack-card'))
@@ -127,8 +131,6 @@ export default function EditorialGallery() {
       const penultimateIndex = cards.length - 2
 
       cards.forEach((card, index) => {
-        // Penúltimo e último nunca entram no ciclo is-behind:
-        // o sticky compartilhado + filter/scale gerava recálculo infinito no Card XV.
         if (index >= penultimateIndex) {
           card.classList.remove('is-behind')
           return
@@ -191,26 +193,13 @@ export default function EditorialGallery() {
             const photoNum = idx + 2
             const isEager = idx < 2 || idx >= photosToDisplay.length - 2
             const isLandscapeOrFull = idx === 0 || meta.roman === 'XIV' || meta.roman === 'XV'
-            const isLast = idx === photosToDisplay.length - 1
-            const isPenultimate = idx === photosToDisplay.length - 2
-            const isPhoto15 = /\/15\.(webp|jpeg|jpg|png)$/i.test(src)
-
             const calculatedZIndex = (idx + 1) * 10
-            const cardClassName = [
-              'photo-stack-card',
-              isPenultimate ? 'is-stack-penultimate' : '',
-              isLast ? 'is-stack-last' : '',
-              isPhoto15 ? 'is-photo-15' : '',
-            ].filter(Boolean).join(' ')
 
             return (
               <article
                 key={src}
-                className={cardClassName}
-                style={{
-                  zIndex: calculatedZIndex,
-                  isolation: 'isolate',
-                }}
+                className="photo-stack-card"
+                style={{ zIndex: calculatedZIndex }}
               >
                 <div className="photo-stack-passepartout">
                   <div className={`photo-stack-img-wrapper ${meta.roman === 'III' || meta.roman === 'XIII' ? 'is-portrait' : ''} ${idx === 0 ? 'is-landscape' : ''} ${meta.roman === 'XI' ? 'is-luminescencia' : ''} ${meta.roman === 'XIV' || meta.roman === 'XV' ? 'is-landscape-full' : ''}`}>
@@ -220,11 +209,8 @@ export default function EditorialGallery() {
                       width={isLandscapeOrFull ? '1600' : '800'}
                       height={isLandscapeOrFull ? '1000' : '1000'}
                       loading={isEager ? 'eager' : 'lazy'}
-                      decoding={isEager ? 'sync' : 'async'}
+                      decoding="async"
                       className="photo-stack-img"
-                      style={{
-                        filter: 'sepia(0.18) contrast(1.08) brightness(0.95) saturate(0.85)',
-                      }}
                     />
                   </div>
                   <figcaption className="photo-stack-caption">
