@@ -1,33 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ============================================================
-// CHAVES PIX OFICIAIS DO CASAL
-// ============================================================
-const PIX_NOIVA = '11989128745'
-const PIX_NOIVO = '11984335153'
-
 export default function GiftsSection() {
   const containerRef = useRef(null)
-  const [copiedGrazi, setCopiedGrazi] = useState(false)
-  const [copiedMarcos, setCopiedMarcos] = useState(false)
-
-  const handleCopy = (key, type) => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(key).then(() => {
-        if (type === 'grazi') {
-          setCopiedGrazi(true)
-          setTimeout(() => setCopiedGrazi(false), 3000)
-        } else {
-          setCopiedMarcos(true)
-          setTimeout(() => setCopiedMarcos(false), 3000)
-        }
-      })
-    }
-  }
 
   useEffect(() => {
     const container = containerRef.current
@@ -103,48 +81,31 @@ export default function GiftsSection() {
           <span className="gifts-divider-line" />
         </div>
 
-        {/* 3. Colunas Gêmeas para Duas Chaves Pix (Noiva & Noivo) */}
-        <div className="gifts-grid-pix">
-          {/* Pix Noiva (Graziela) */}
-          <div className="gifts-card-editorial">
-            <span className="gifts-card-tag">PIX DA NOIVA · GRAZIELA</span>
-            <div className="gifts-key-display">{PIX_NOIVA}</div>
-            <button
-              type="button"
-              className="gifts-copy-action"
-              onClick={() => handleCopy(PIX_NOIVA, 'grazi')}
-              aria-label="Copiar chave Pix da Noiva"
-            >
-              {copiedGrazi ? 'CHAVE COPIADA ✓' : 'COPIAR CHAVE ⎘'}
-            </button>
-            {copiedGrazi && <p className="gifts-toast-msg">Chave copiada com sucesso!</p>}
-          </div>
-
-          {/* Pix Noivo (Marcos) */}
-          <div className="gifts-card-editorial">
-            <span className="gifts-card-tag">PIX DO NOIVO · MARCOS</span>
-            <div className="gifts-key-display">{PIX_NOIVO}</div>
-            <button
-              type="button"
-              className="gifts-copy-action"
-              onClick={() => handleCopy(PIX_NOIVO, 'marcos')}
-              aria-label="Copiar chave Pix do Noivo"
-            >
-              {copiedMarcos ? 'CHAVE COPIADA ✓' : 'COPIAR CHAVE ⎘'}
-            </button>
-            {copiedMarcos && <p className="gifts-toast-msg">Chave copiada com sucesso!</p>}
-          </div>
-        </div>
-
-        {/* 4. Lista de Presentes & Vales Simbólicos */}
-        <div className="gifts-online-wrapper">
+        {/* 3. Lista de Presentes & Vales Simbólicos (Isolado e Centralizado) */}
+        <div className="gifts-online-wrapper gifts-catalog-only">
           <div className="gifts-card-editorial gifts-card-wide">
+            {/* Detalhe Botânico Linear */}
+            <svg
+              width="46"
+              height="20"
+              viewBox="0 0 46 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              stroke="#bfa168"
+              strokeWidth="0.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ margin: '0 auto 12px auto', display: 'block', opacity: 0.85 }}
+              aria-hidden="true"
+            >
+              <path d="M23 20V2M23 14C18 14 16 11 16 7C18 9 21 11 23 11M23 14C28 14 30 11 30 7C28 9 25 11 23 11M23 8C19 8 17 5 17 1C19 3 21 5 23 5M23 8C27 8 29 5 29 1C27 3 25 5 23 5" />
+            </svg>
             <span className="gifts-card-tag">CATÁLOGO DE EXPERIÊNCIAS</span>
             <a
               href="/presentes"
-              className="gifts-link-action"
+              className="gifts-link-action gifts-pulse-cta"
             >
-              VER SUGESTÕES DE PRESENTES &amp; VALES ↗
+              · VER SUGESTÕES DE PRESENTES &amp; VALES ↗
             </a>
           </div>
         </div>

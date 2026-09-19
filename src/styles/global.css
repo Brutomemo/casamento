@@ -1907,6 +1907,28 @@ img {
   transform: translateY(-1px);
 }
 
+.gifts-catalog-only {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@keyframes subtlePulseCta {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.025);
+  }
+}
+
+.gifts-pulse-cta {
+  animation: subtlePulseCta 2.8s ease-in-out infinite;
+}
+
+
 /* ============================================================
    PÁGINA DEDICADA DE VALES & EXPERIÊNCIAS (/presentes)
    ============================================================ */
