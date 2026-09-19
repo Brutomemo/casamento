@@ -84,22 +84,15 @@ export default function GiftsSection() {
         {/* 3. Lista de Presentes & Vales Simbólicos (Isolado e Centralizado) */}
         <div className="gifts-online-wrapper gifts-catalog-only">
           <div className="gifts-card-editorial gifts-card-wide">
-            {/* Detalhe Botânico Linear */}
-            <svg
-              width="46"
-              height="20"
-              viewBox="0 0 46 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              stroke="#bfa168"
-              strokeWidth="0.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ margin: '0 auto 12px auto', display: 'block', opacity: 0.85 }}
+            {/* Detalhe Botânico: Ramo de Oliveira Real */}
+            <img
+              src="/assets/oliveira.webp"
+              alt=""
               aria-hidden="true"
-            >
-              <path d="M23 20V2M23 14C18 14 16 11 16 7C18 9 21 11 23 11M23 14C28 14 30 11 30 7C28 9 25 11 23 11M23 8C19 8 17 5 17 1C19 3 21 5 23 5M23 8C27 8 29 5 29 1C27 3 25 5 23 5" />
-            </svg>
+              style={{ maxWidth: '44px', height: 'auto', margin: '0 auto 10px auto', display: 'block' }}
+              loading="lazy"
+              decoding="async"
+            />
             <span className="gifts-card-tag">CATÁLOGO DE EXPERIÊNCIAS</span>
             <a
               href="/presentes"
