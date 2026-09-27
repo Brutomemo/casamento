@@ -93,9 +93,9 @@ export default function CelebrationDetails() {
         {/* Sub-bloco 4: Traje & Orientações (Dress Code Editorial) */}
         <div className="celebration-dresscode">
           <p className="celebration-eyebrow">Traje &amp; Orientações</p>
-          <h3 className="dresscode-title" style={{ marginTop: '0.45rem', marginBottom: '1rem' }}>Passeio Completo</h3>
+          <h3 className="dresscode-title" style={{ marginTop: '0.45rem', marginBottom: '1rem' }}>Passeio</h3>
           <p className="dresscode-desc">
-            Sugerimos terno ou costume para os cavalheiros e vestidos elegantes (longos ou mídis) para as damas.
+            Sugerimos esporte fino para os cavalheiros e vestidos elegantes (longos ou mídis) para as damas.
           </p>
           <p className="dresscode-note">
             Por gentileza, reservamos os tons de branco, off-white e marfim exclusivamente para a noiva.
