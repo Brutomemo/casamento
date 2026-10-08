@@ -2,6 +2,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const items = [
   ['12h00', 'Recepção'],
+  ['13h00', 'Cerimônia'],  
   ['19h00', 'Encerramento'],
 ]
 

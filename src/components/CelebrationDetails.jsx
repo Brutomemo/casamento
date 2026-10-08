@@ -52,7 +52,8 @@ export default function CelebrationDetails() {
         <div className="celebration-venue">
           <h2 className="celebration-subheading">Brooklin — São Paulo</h2>
           <p className="celebration-address">
-            Rua João de Lacerda Soares, 31 — Jardim das Acácias
+            Rua João de Lacerda Soares, 31 — Jardim das Acácias<br />
+            <strong>Salão Térreo</strong>
           </p>
           <a
             href={mapsUrl}
